@@ -29,19 +29,33 @@ export function allTickers(f: CatalogFund): string[] {
 
 export const ASSET_CLASSES: { id: AssetClass; label: string }[] = [
   { id: 'us-stock', label: 'US stocks' },
+  { id: 'sector', label: 'Sectors and themes' },
   { id: 'intl-stock', label: 'International stocks' },
   { id: 'bond', label: 'Bonds' },
   { id: 'balanced', label: 'Balanced and target-date' },
-  { id: 'real-assets', label: 'Real estate and precious metals' },
-  { id: 'reference', label: 'Benchmarks and reference lines' },
+  { id: 'real-assets', label: 'Real estate, metals and commodities' },
+  { id: 'alternatives', label: 'Hedges and alternatives' },
+  { id: 'reference', label: 'Benchmarks and blends' },
 ]
 
-export type FilterKey = 'cls' | 'mix' | 'reg' | 'prov' | 'kind' | 'wrap' | 'hist'
+export type FilterKey = 'cls' | 'tag' | 'mix' | 'reg' | 'prov' | 'kind' | 'wrap' | 'hist'
 export type Filters = Record<FilterKey, string[]>
-export const EMPTY_FILTERS: Filters = { cls: [], mix: [], reg: [], prov: [], kind: [], wrap: [], hist: [] }
+export const EMPTY_FILTERS: Filters = { cls: [], tag: [], mix: [], reg: [], prov: [], kind: [], wrap: [], hist: [] }
 
 export const FILTER_GROUPS: { key: FilterKey; label: string; options: { value: string; label: string }[] }[] = [
   { key: 'cls', label: 'Asset class', options: ASSET_CLASSES.map((a) => ({ value: a.id, label: a.label })) },
+  {
+    key: 'tag',
+    label: 'Theme',
+    options: [
+      { value: 'defensive', label: 'Built to be steadier in downturns' },
+      { value: 'ai-software', label: 'Heavy in AI, software or chips' },
+      { value: 'sector', label: 'Sector fund' },
+      { value: 'tax-managed', label: 'Tax-managed or tax-exempt' },
+      { value: 'factor', label: 'Strategy (low volatility, equal weight...)' },
+      { value: 'dividend', label: 'Dividend or income' },
+    ],
+  },
   {
     key: 'mix',
     label: 'Stock / bond mix',
@@ -124,6 +138,7 @@ function matchesGroup(selected: string[], values: string[]): boolean {
 
 export function matchesFilters(f: CatalogFund, filters: Filters, manifest: Manifest | null): boolean {
   if (!matchesGroup(filters.cls, [f.assetClass])) return false
+  if (!matchesGroup(filters.tag, f.tags ?? [])) return false
   if (!matchesGroup(filters.mix, [f.mix])) return false
   if (!matchesGroup(filters.reg, [f.region])) return false
   if (!matchesGroup(filters.prov, providersOf(f))) return false
@@ -179,10 +194,17 @@ export function groupFunds(funds: CatalogFund[]): FundGroup[] {
   return out
 }
 
-export const QUICK_SETS: { label: string; hint: string; ids: string[] }[] = [
+export const QUICK_SETS: { label: string; hint: string; ids: string[]; mix?: Record<string, number> }[] = [
   { label: 'Stocks, bonds, gold', hint: 'The three basic ingredients side by side', ids: ['VFIAX', 'VBTLX', 'GLD'] },
   { label: 'US vs international', hint: 'Home market against the rest of the world', ids: ['VFIAX', 'VTIAX', 'VEMAX'] },
   { label: 'Risk ladder', hint: 'Vanguard LifeStrategy from 80% to 20% stocks', ids: ['VASGX', 'VSMGX', 'VSCGX', 'VASIX'] },
+  { label: 'Stock/bond blends', hint: '80/20 down to 20/80, rebalanced monthly', ids: ['BLEND8020', 'BLEND6040', 'BLEND4060', 'BLEND2080'] },
   { label: 'Bond maturities', hint: 'Short, intermediate and long Treasuries', ids: ['VGSH', 'VGIT', 'VGLT'] },
   { label: 'Stocks vs 60/40 vs cash', hint: 'What risk bought you, and what cash would have done', ids: ['VFIAX', 'BLEND6040', 'CASH'] },
+  { label: 'Held up in downturns', hint: 'Defensive sectors, low volatility, gold and bonds next to the S&P 500', ids: ['VFIAX', 'VDC', 'VPU', 'USMV', 'GLD', 'VBTLX'] },
+  { label: 'Sector spread', hint: 'Six sectors that behave very differently', ids: ['VGT', 'VHT', 'VFH', 'VDE', 'VDC', 'VPU'] },
+  { label: 'AI and software bets', hint: 'The most AI- and software-heavy funds against the S&P 500', ids: ['VFIAX', 'QQQ', 'IGV', 'SMH'] },
+  { label: 'Dilute the big tech names', hint: 'Equal weight, value and dividend funds hold far less of the largest technology stocks', ids: ['VFIAX', 'RSP', 'VVIAX', 'SCHD', 'VDC'] },
+  { label: 'Tax-managed vs regular', hint: 'Before-tax returns are close; the difference is the tax bill', ids: ['VFIAX', 'VTCLX', 'VWIUX', 'VBILX'] },
+  { label: '50/50 mix example', hint: 'Half S&P 500, half Total Bond Market, built with the mix tool', ids: ['VFIAX', 'VBTLX'], mix: { VFIAX: 50, VBTLX: 50 } },
 ]

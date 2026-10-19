@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "note": "My own judgement calls about which well-known companies are tied to AI or to software, as of late 2026. Not an official classification. Edit freely: add a ticker with one or both labels and rebuild.",
+  "labels": {
+    "ai": "AI-linked: chips, AI hardware and infrastructure, cloud platforms and companies whose growth story leans heavily on AI",
+    "software": "Software: companies whose main product is software or a software subscription"
+  },
+  "symbols": {
+    "NVDA": [
+      "ai"
+    ],
+    "AVGO": [
+      "ai"
+    ],
+    "AMD": [
+      "ai"
+    ],
+    "TSM": [
+      "ai"
+    ],
+    "MU": [
+      "ai"
+    ],
+    "ASML": [
+      "ai"
+    ],
+    "MRVL": [
+      "ai"
+    ],
+    "ARM": [
+      "ai"
+    ],
+    "SMCI": [
+      "ai"
+    ],
+    "ANET": [
+      "ai"
+    ],
+    "VRT": [
+      "ai"
+    ],
+    "LRCX": [
+      "ai"
+    ],
+    "AMAT": [
+      "ai"
+    ],
+    "KLAC": [
+      "ai"
+    ],
+    "QCOM": [
+      "ai"
+    ],
+    "CRWV": [
+      "ai"
+    ],
+    "DELL": [
+      "ai"
+    ],
+    "SNPS": [
+      "ai",
+      "software"
+    ],
+    "CDNS": [
+      "ai",
+      "software"
+    ],
+    "MSFT": [
+      "ai",
+      "software"
+    ],
+    "ORCL": [
+      "ai",
+      "software"
+    ],
+    "PLTR": [
+      "ai",
+      "software"
+    ],
+    "GOOGL": [
+      "ai"
+    ],
+    "GOOG": [
+      "ai"
+    ],
+    "META": [
+      "ai"
+    ],
+    "AMZN": [
+      "ai"
+    ],
+    "CRM": [
+      "software"
+    ],
+    "ADBE": [
+      "software"
+    ],
+    "NOW": [
+      "software"
+    ],
+    "INTU": [
+      "software"
+    ],
+    "PANW": [
+      "software"
+    ],
+    "CRWD": [
+      "software"
+    ],
+    "SNOW": [
+      "software"
+    ],
+    "WDAY": [
+      "software"
+    ],
+    "ADSK": [
+      "software"
+    ],
+    "FTNT": [
+      "software"
+    ],
+    "DDOG": [
+      "software"
+    ],
+    "TEAM": [
+      "software"
+    ],
+    "SHOP": [
+      "software"
+    ],
+    "NET": [
+      "software"
+    ],
+    "ZS": [
+      "software"
+    ],
+    "HUBS": [
+      "software"
+    ],
+    "TTD": [
+      "software"
+    ],
+    "APP": [
+      "software"
+    ],
+    "MDB": [
+      "software"
+    ],
+    "TYL": [
+      "software"
+    ],
+    "PAYC": [
+      "software"
+    ],
+    "ROP": [
+      "software"
+    ],
+    "FICO": [
+      "software"
+    ],
+    "ANSS": [
+      "software"
+    ],
+    "PTC": [
+      "software"
+    ],
+    "GDDY": [
+      "software"
+    ],
+    "DOCU": [
+      "software"
+    ],
+    "OKTA": [
+      "software"
+    ],
+    "TWLO": [
+      "software"
+    ],
+    "U": [
+      "software"
+    ],
+    "VEEV": [
+      "software"
+    ],
+    "GWRE": [
+      "software"
+    ],
+    "MANH": [
+      "software"
+    ],
+    "BSY": [
+      "software"
+    ],
+    "DT": [
+      "software"
+    ]
+  }
+}

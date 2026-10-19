@@ -1,4 +1,4 @@
-import type { Manifest, Series, SeriesFile } from '../types'
+import type { HoldingsFile, Manifest, Series, SeriesFile } from '../types'
 import { toSeries } from './series'
 
 declare const __PREVIEW__: boolean
@@ -52,6 +52,28 @@ export function loadSeries(id: string): Promise<Series> {
     })()
     seriesCache.set(id, p)
     p.catch(() => seriesCache.delete(id))
+  }
+  return p
+}
+
+const holdingsCache = new Map<string, Promise<HoldingsFile | null>>()
+
+/** Top holdings for a fund, or null when there is no file (not every fund has one). */
+export function loadHoldings(id: string): Promise<HoldingsFile | null> {
+  let p = holdingsCache.get(id)
+  if (!p) {
+    p = (async () => {
+      if (__PREVIEW__) return null
+      try {
+        const res = await fetch(dataUrl(`data/holdings/${encodeURIComponent(id)}.json`), { cache: 'no-cache' })
+        if (!res.ok) return null
+        const h = (await res.json()) as HoldingsFile
+        return Array.isArray(h.top) && h.top.length > 0 ? h : null
+      } catch {
+        return null
+      }
+    })()
+    holdingsCache.set(id, p)
   }
   return p
 }

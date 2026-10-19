@@ -24,7 +24,7 @@ interface Props {
   onInfo: (id: string) => void
   onQ: (q: string) => void
   onFilters: (f: Filters) => void
-  onSet: (ids: string[]) => void
+  onSet: (ids: string[], mix?: Record<string, number>) => void
 }
 
 export function FundPicker(p: Props) {
@@ -117,7 +117,7 @@ export function FundPicker(p: Props) {
           <div className="quick">
             <span className="group-label">Quick comparisons</span>
             {QUICK_SETS.map((s) => (
-              <button key={s.label} type="button" className="chip" title={s.hint} onClick={() => p.onSet(s.ids)}>
+              <button key={s.label} type="button" className="chip" title={s.hint} onClick={() => p.onSet(s.ids, s.mix)}>
                 {s.label}
               </button>
             ))}

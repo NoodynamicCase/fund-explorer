@@ -11,6 +11,8 @@ export interface DisplayLine {
   /** SVG dash pattern for benchmark lines; undefined = solid. */
   dash?: string
   bench: boolean
+  /** The user's own mix: drawn solid, heavier, and on top. */
+  thick?: boolean
   line: Line
 }
 
@@ -119,7 +121,7 @@ export function buildOption(input: ChartInput) {
     animation: false,
     z: 3 + i,
     lineStyle: {
-      width: l.bench ? 1.75 : 2.25,
+      width: l.thick ? 3.5 : l.bench ? 1.75 : 2.25,
       color: l.color,
       type: l.dash ? dashStyle(l.dash) : 'solid',
       cap: 'round' as const,

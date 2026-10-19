@@ -110,3 +110,25 @@ describe('colour slots', () => {
     expect(res.BM).toEqual({ kind: 'bench', index: 0 })
   })
 })
+
+describe('my mix in the URL', () => {
+  const ctx2 = { resolveFund: (s: string) => ({ VOO: 'VFIAX', VFIAX: 'VFIAX', VBTLX: 'VBTLX', CPI: 'CPI' } as Record<string, string>)[s], columnIds: [], presetIds: [], filterValues: { cls: [], tag: [], mix: [], reg: [], prov: [], kind: [], wrap: [], hist: [] } }
+  it('round-trips weights and the rebalance choice', () => {
+    const st = { ...defaultState(), funds: ['VFIAX', 'VBTLX'], mix: { VFIAX: 50, VBTLX: 25.5 }, rb: 'monthly' as const }
+    const hash = serializeState(st)
+    expect(hash).toContain('w=VFIAX:50,VBTLX:25.5')
+    expect(hash).toContain('rb=m')
+    const back = parseHash(hash, ctx2 as never).state
+    expect(back.mix).toEqual({ VFIAX: 50, VBTLX: 25.5 })
+    expect(back.rb).toBe('monthly')
+  })
+  it('an empty mix still means "mix tool on"; absent means off', () => {
+    const on = parseHash('#/funds?w=', ctx2 as never).state
+    expect(on.mix).toEqual({})
+    expect(parseHash('#/funds', ctx2 as never).state.mix).toBeUndefined()
+  })
+  it('drops garbage, negatives, unknown funds and inflation', () => {
+    const st = parseHash('#/funds?w=VOO:abc,VBTLX:-5,NOPE:10,CPI:10,VFIAX:60,VFIAX:70', ctx2 as never).state
+    expect(st.mix).toEqual({ VFIAX: 60 })
+  })
+})

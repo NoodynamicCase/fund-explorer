@@ -1,6 +1,7 @@
 import type { ViewMode } from '../types'
 import { parseISO } from './format'
 import { EMPTY_FILTERS, type FilterKey, type Filters } from './catalog'
+import { DEFAULT_REBALANCE, REBALANCE_OPTIONS, type Rebalance } from './portfolio'
 
 export const DEFAULT_FUNDS = ['VFIAX', 'VBTLX', 'VTIAX']
 export const MAX_FUNDS = 12
@@ -22,6 +23,9 @@ export interface ViewState {
   ddmin?: number
   q: string
   filters: Filters
+  /** My mix: fund id -> weight (any positive numbers; they are scaled to 100%). undefined = mix tool off. */
+  mix?: Record<string, number>
+  rb: Rebalance
   cols?: string[]
   sort?: { col: string; dir: 'asc' | 'desc' }
 }
@@ -33,6 +37,7 @@ export function defaultState(): ViewState {
     log: false,
     view: 'perf',
     shade: true,
+    rb: DEFAULT_REBALANCE,
     q: '',
     filters: { ...EMPTY_FILTERS },
   }
@@ -45,7 +50,7 @@ export interface ParseCtx {
   filterValues: Record<FilterKey, string[]>
 }
 
-const FILTER_KEYS: FilterKey[] = ['cls', 'mix', 'reg', 'prov', 'kind', 'wrap', 'hist']
+const FILTER_KEYS: FilterKey[] = ['cls', 'tag', 'mix', 'reg', 'prov', 'kind', 'wrap', 'hist']
 
 function num(s: string | null): number | undefined {
   if (s === null || s.trim() === '') return undefined
@@ -111,6 +116,19 @@ export function parseHash(hash: string, ctx: ParseCtx): { route: string; state: 
     state.filters[key] = list(qs.get(key)).filter((v) => ctx.filterValues[key].includes(v))
   }
 
+  if (qs.has('w')) {
+    const mix: Record<string, number> = {}
+    for (const part of list(qs.get('w'))) {
+      const [rawId, rawWeight] = part.split(':')
+      const id = ctx.resolveFund(rawId ?? '')
+      const weight = num(rawWeight ?? null)
+      if (id && id !== 'CPI' && weight !== undefined && weight > 0 && weight <= 1e9 && !(id in mix)) mix[id] = weight
+    }
+    state.mix = mix
+  }
+  const rb = REBALANCE_OPTIONS.find((o) => o.code === qs.get('rb'))
+  if (rb) state.rb = rb.value
+
   if (qs.has('cols')) {
     const cols = list(qs.get('cols')).filter((c) => ctx.columnIds.includes(c))
     if (cols.length > 0) state.cols = cols
@@ -151,6 +169,11 @@ export function serializeState(state: ViewState, route: string = ROUTE_FUNDS): s
   for (const key of FILTER_KEYS) {
     if (state.filters[key].length > 0) parts.push(`${key}=${state.filters[key].map(enc).join(',')}`)
   }
+  if (state.mix) {
+    const entries = state.funds.filter((id) => (state.mix?.[id] ?? 0) > 0).map((id) => `${enc(id)}:${state.mix![id]}`)
+    parts.push(`w=${entries.join(',')}`)
+  }
+  if (state.rb !== DEFAULT_REBALANCE) parts.push(`rb=${REBALANCE_OPTIONS.find((o) => o.value === state.rb)!.code}`)
   if (state.cols && state.cols.length > 0) parts.push(`cols=${state.cols.map(enc).join(',')}`)
   if (state.sort) parts.push(`sort=${enc(state.sort.col)}:${state.sort.dir}`)
   return `#${route}${parts.length ? '?' + parts.join('&') : ''}`

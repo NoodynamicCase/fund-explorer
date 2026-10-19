@@ -6,17 +6,19 @@ import {
 } from '../../lib/colors'
 import { DEFAULT_COLUMNS, computeRow } from '../../lib/columns'
 import { crisisById } from '../../lib/crises'
-import { loadSeries } from '../../lib/data'
+import { loadHoldings, loadSeries } from '../../lib/data'
 import { fmtMonth, parseISO, toISO } from '../../lib/format'
 import { readChartTokens, useMediaQuery, useTheme } from '../../lib/hooks'
 import { DAY, YEAR, drawdownLine, raw as rawLine, rebased } from '../../lib/series'
+import { MIX_FUND, MIX_ID, blendMix, describeMix, equalWeights, type MixPart } from '../../lib/portfolio'
 import { riskFreeRate } from '../../lib/stats'
 import type { ViewState } from '../../lib/urlState'
-import type { Manifest, Series } from '../../types'
+import { blendExposure, exposureOf, type Exposure } from '../../lib/themes'
+import type { HoldingsFile, Manifest, Series } from '../../types'
 import { ChartPanel, RANGES, type LegendItem, type RangeKey } from './ChartPanel'
 import { FundPicker } from './FundPicker'
 import { InfoModal } from './InfoModal'
-import { StatsTable, type TableRow } from './StatsTable'
+import { StatsTable, type MixControls, type TableRow } from './StatsTable'
 import type { Patch, UpdateMode } from './useViewState'
 
 interface Props {
@@ -50,6 +52,24 @@ function useSeriesStore(ids: string[], manifest: Manifest | null) {
   return { store, errors, loading }
 }
 
+/** Loads each fund's top-holdings file once (null = this fund has none). */
+function useHoldingsStore(ids: string[]) {
+  const [store, setStore] = useState<Record<string, HoldingsFile | null>>({})
+  const inflight = useRef(new Set<string>())
+  const key = ids.join(',')
+  useEffect(() => {
+    for (const id of ids) {
+      if (id in store || inflight.current.has(id)) continue
+      inflight.current.add(id)
+      loadHoldings(id)
+        .then((h) => setStore((p) => ({ ...p, [id]: h })))
+        .finally(() => inflight.current.delete(id))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+  return store
+}
+
 export function FundsModule({ state, update, manifest, notify }: Props) {
   const theme = useTheme()
   const narrow = useMediaQuery('(max-width: 640px)')
@@ -64,6 +84,30 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
   )
   const { store, errors, loading } = useSeriesStore(ids, manifest)
   const sample = Boolean(manifest?.synthetic)
+  const holdIds = useMemo(
+    () => [...new Set([...state.funds, ...(infoId ? [infoId] : [])])].filter((id) => manifest?.holdings?.includes(id)),
+    [state.funds, infoId, manifest],
+  )
+  const holdings = useHoldingsStore(holdIds)
+
+  // ---- my mix: the weights typed into the table, blended into one line ----
+  const mixOn = state.mix !== undefined
+  const mixIds = useMemo(
+    () => (state.mix ? state.funds.filter((id) => (state.mix![id] ?? 0) > 0 && id !== 'CPI' && manifest?.funds[id]) : []),
+    [state.mix, state.funds, manifest],
+  )
+  const mixLeftOut = useMemo(
+    () => (state.mix ? state.funds.filter((id) => (state.mix![id] ?? 0) > 0 && id !== 'CPI' && manifest && !manifest.funds[id]) : []),
+    [state.mix, state.funds, manifest],
+  )
+  const mixPending = mixIds.some((id) => !store[id])
+  const mixResult = useMemo(() => {
+    if (mixPending || mixIds.length === 0 || !state.mix) return null
+    const parts: MixPart[] = mixIds.map((id) => ({ id, weight: state.mix![id], series: store[id] }))
+    return blendMix(parts, state.rb)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mixPending, mixIds, state.mix, state.rb, store])
+  const mixName = (id: string) => BY_ID.get(id)?.short ?? id
 
   // ---- colours: a fund keeps its colour while it stays on the chart ----
   const selected = useMemo(() => state.funds.map((id) => BY_ID.get(id)!).filter(Boolean), [state.funds])
@@ -72,6 +116,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
   for (const [id, s] of Object.entries(assigned)) if (s) slotsRef.current[id] = s
   const slotKey = JSON.stringify(assigned)
 
+  const mixColor = theme === 'dark' ? '#f0efec' : '#0b0b0b'
   const palette = theme === 'dark' ? SERIES_DARK : SERIES_LIGHT
   const benchPalette = theme === 'dark' ? BENCH_DARK : BENCH_LIGHT
   const styleOf = (slot: Slot | undefined): { color: string; dash?: string } => {
@@ -81,11 +126,15 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
 
   // ---- full range and visible window ----
   const drawn = selected.filter((f) => assigned[f.id] && store[f.id])
-  const fullFrom = drawn.length ? Math.min(...drawn.map((f) => store[f.id].t[0])) : 0
-  const fullTo = drawn.length ? Math.max(...drawn.map((f) => store[f.id].t[store[f.id].t.length - 1])) : 0
+  const spans = [
+    ...drawn.map((f) => ({ a: store[f.id].t[0], b: store[f.id].t[store[f.id].t.length - 1] })),
+    ...(mixResult ? [{ a: mixResult.start, b: mixResult.end }] : []),
+  ]
+  const fullFrom = spans.length ? Math.min(...spans.map((x) => x.a)) : 0
+  const fullTo = spans.length ? Math.max(...spans.map((x) => x.b)) : 0
 
   const win = useMemo(() => {
-    if (!drawn.length) return null
+    if (!spans.length) return null
     let from = fullFrom
     let to = fullTo
     const crisis = crisisById(state.preset)
@@ -101,7 +150,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
     if (to - from < 21 * DAY) return { from: fullFrom, to: fullTo }
     return { from, to }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [drawn.length, fullFrom, fullTo, state.from, state.to, state.preset])
+  }, [spans.length, fullFrom, fullTo, state.from, state.to, state.preset])
 
   const windowIsFull = win ? win.from <= fullFrom + DAY && win.to >= fullTo - DAY : true
 
@@ -136,9 +185,21 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
       lines.push({ ...base, bench: isBenchmark(f), line })
       legend.push({ ...base, status: 'ok' })
     }
+    if (mixOn) {
+      const base = { id: MIX_ID, name: 'My mix', short: 'My mix', color: mixColor, noInfo: true }
+      if (mixPending) legend.unshift({ ...base, status: 'loading', note: 'loading' })
+      else if (!mixResult) legend.unshift({ ...base, status: 'nodata', note: mixIds.length === 0 ? 'enter weights in the table below' : 'the chosen funds do not overlap in time' })
+      else if (win) {
+        const line = state.view === 'dd' ? drawdownLine(mixResult.series, win.from, win.to) : state.rebase ? rebased(mixResult.series, win.from, win.to) : rawLine(mixResult.series, win.from, win.to)
+        if (line) {
+          lines.push({ ...base, bench: false, thick: true, line })
+          legend.unshift({ ...base, status: 'ok', note: mixResult.limitedBy ? `starts ${fmtMonth(mixResult.start)}` : undefined })
+        } else legend.unshift({ ...base, status: 'nodata', note: `starts ${fmtMonth(mixResult.start)}` })
+      }
+    }
     return { lines, legend }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, slotKey, store, errors, manifest, win, state.view, state.rebase, theme])
+  }, [selected, slotKey, store, errors, manifest, win, state.view, state.rebase, theme, mixOn, mixPending, mixResult, mixIds])
 
   const option = useMemo(() => {
     if (!win || lines.length === 0) return null
@@ -163,16 +224,38 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
       if (!s) note = manifest && !manifest.funds[f.id] ? 'No data yet' : errors[f.id] ? 'Could not load' : 'Loading'
       out.push({
         fund: f, color: st.color, dash: st.dash, note,
-        stats: s ? computeRow({ fund: f, series: s, from: statFrom, to: statTo, rfAnnual: rf, bench: store['VFIAX'] }) : null,
+        stats: s ? computeRow({ fund: f, series: s, from: statFrom, to: statTo, rfAnnual: rf, bench: store['VFIAX'], holdings: holdings[f.id] }) : null,
+      })
+    }
+    if (mixOn && mixResult) {
+      const composition = describeMix(mixResult.weights, mixName)
+      const limit = mixResult.limitedBy ? ` History starts ${fmtMonth(mixResult.start)} because ${mixName(mixResult.limitedBy)} began then.` : ''
+      const parts = Object.entries(mixResult.weights).map(([id, weight]) => {
+        const f = BY_ID.get(id)
+        let exposure: Exposure | null | 'none' = null
+        if (f && (f.mix === 'bond' || (f.mix === 'other' && id !== 'VNQ'))) exposure = 'none'
+        else if (f && f.kind !== 'allocation' && f.kind !== 'target-date' && holdings[id]) exposure = exposureOf(holdings[id]!)
+        return { weight, exposure }
+      })
+      out.unshift({
+        fund: MIX_FUND, color: mixColor, isMix: true,
+        note: `${composition}. Rebalanced ${state.rb === 'never' ? 'never (buy and hold)' : state.rb}.${limit}`,
+        stats: computeRow({ fund: MIX_FUND, series: mixResult.series, from: statFrom, to: statTo, rfAnnual: rf, bench: store['VFIAX'], exposure: blendExposure(parts) }),
       })
     }
     return out
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, slotKey, store, errors, manifest, statFrom, statTo, theme])
+  }, [selected, slotKey, store, errors, manifest, statFrom, statTo, theme, mixOn, mixResult, state.rb, holdings])
 
   const windowLabel = win ? (windowIsFull ? `full history, ${fmtMonth(win.from)} – ${fmtMonth(win.to)}` : `${fmtMonth(win.from)} – ${fmtMonth(win.to)}`) : 'no data yet'
 
   // ---- actions ----
+  /** Changing the fund list also drops weights of funds that left the chart. */
+  const setFunds = (funds: string[], mix?: Record<string, number>) =>
+    update((s) => ({
+      funds,
+      ...(mix ? { mix } : s.mix ? { mix: Object.fromEntries(Object.entries(s.mix).filter(([id]) => funds.includes(id))) } : {}),
+    }))
   const setWindow = (from: number, to: number, mode: UpdateMode) => {
     const s = Math.round(from / DAY) * DAY
     const e = Math.round(to / DAY) * DAY
@@ -206,7 +289,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
       : RANGES.find((r) => r.years && Math.abs(win.to - fullTo) < 8 * DAY && Math.abs(win.to - win.from - r.years * YEAR) < 8 * DAY)?.key
 
   const toggleFund = (id: string) => {
-    if (state.funds.includes(id)) return update({ funds: state.funds.filter((x) => x !== id) })
+    if (state.funds.includes(id)) return setFunds(state.funds.filter((x) => x !== id))
     const f = BY_ID.get(id)
     if (!f) return
     const bench = isBenchmark(f)
@@ -216,7 +299,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
       notify(bench ? `The chart holds up to ${cap} benchmark lines. Remove one first.` : `The chart holds up to ${cap} funds so the colors stay easy to tell apart. Remove one first.`)
       return
     }
-    update({ funds: [...state.funds, id] })
+    setFunds([...state.funds, id])
   }
 
   // ---- empty / status messages for the chart area ----
@@ -242,6 +325,39 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
     ? state.funds.filter((x) => { const g = BY_ID.get(x); return g ? isBenchmark(g) === isBenchmark(infoFund) : false }).length < (isBenchmark(infoFund) ? MAX_BENCH : MAX_COLORED)
     : false
 
+  const mixTotal = state.mix ? state.funds.reduce((a, id) => a + (state.mix![id] ?? 0), 0) : 0
+  const mixControls: MixControls = {
+    enabled: mixOn,
+    weights: state.mix ?? {},
+    total: mixTotal,
+    rb: state.rb,
+    pending: mixOn && mixPending,
+    problem: !mixOn
+      ? undefined
+      : mixIds.length === 0
+        ? 'Type a weight next to each fund you want in the mix. Percentages or dollar amounts both work.'
+        : mixPending
+          ? 'Loading fund history…'
+          : !mixResult
+            ? 'These funds do not overlap in time, so there is no mix to show. Remove the youngest fund or pick older ones.'
+            : mixLeftOut.length > 0
+              ? `${mixLeftOut.map(mixName).join(', ')} has no data yet and is left out of the mix.`
+              : undefined,
+    onToggle: () => {
+      if (state.mix) update({ mix: undefined })
+      else update({ mix: equalWeights(state.funds.filter((id) => id !== 'CPI' && manifest?.funds[id])) })
+    },
+    onWeight: (id, w) =>
+      update((s) => {
+        const next = { ...(s.mix ?? {}) }
+        if (w === undefined || !(w > 0)) delete next[id]
+        else next[id] = w
+        return { mix: next }
+      }, 'replace'),
+    onEqual: () => update({ mix: equalWeights(state.funds.filter((id) => id !== 'CPI' && manifest?.funds[id])) }),
+    onRebalance: (rb) => update({ rb }),
+  }
+
   const tickersNote = useMemo(() => selected.map((f) => allTickers(f)[0]).filter(Boolean).join(', '), [selected])
 
   return (
@@ -264,7 +380,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
         onRange={onRange}
         onPreset={(id) => update({ preset: id, from: undefined, to: undefined })}
         onWindowDrag={(f, t) => setWindow(f, t, 'replace')}
-        onRemove={(id) => update({ funds: state.funds.filter((x) => x !== id) })}
+        onRemove={(id) => (id === MIX_ID ? update({ mix: undefined }) : setFunds(state.funds.filter((x) => x !== id)))}
         onInfo={setInfoId}
       />
 
@@ -278,7 +394,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
         onInfo={setInfoId}
         onQ={(q) => update({ q }, 'replace')}
         onFilters={(filters) => update({ filters })}
-        onSet={(funds) => update({ funds })}
+        onSet={(funds, mix) => setFunds(funds, mix)}
       />
 
       <StatsTable
@@ -292,8 +408,9 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
           }))
         }
         onColumns={(cols) => update({ cols })}
-        onRemove={(id) => update({ funds: state.funds.filter((x) => x !== id) })}
+        onRemove={(id) => setFunds(state.funds.filter((x) => x !== id))}
         onInfo={setInfoId}
+        mix={mixControls}
         footer={tickersNote ? <span className="sr-only">Tickers: {tickersNote}</span> : undefined}
       />
 
@@ -302,6 +419,7 @@ export function FundsModule({ state, update, manifest, notify }: Props) {
           fund={infoFund}
           entry={manifest?.funds[infoFund.id]}
           series={store[infoFund.id]}
+          holdings={holdings[infoFund.id]}
           selected={state.funds.includes(infoFund.id)}
           canAdd={infoCanAdd}
           onToggle={() => toggleFund(infoFund.id)}

@@ -10,6 +10,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fetch_data as fd  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def _no_real_holdings_download(monkeypatch):
+    """Tests never touch the network: holdings are skipped unless a test supplies a fake."""
+    monkeypatch.setenv("FETCH_HOLDINGS", "0")
+
+
 def daily(start, n, f):
     idx = pd.bdate_range(start, periods=n)
     return pd.Series([f(i) for i in range(n)], index=idx, dtype=float)
@@ -166,3 +172,82 @@ def test_main_deletes_sample_files_and_keeps_old_real_files(monkeypatch, tmp_pat
     manifest = json.loads((tmp_path / "manifest.json").read_text())
     assert {f["id"] for f in manifest["failed"]} >= {"GLD", "SLV"}
     assert manifest["funds"]["GLD"]["points"] == 2
+
+
+# ---- holdings --------------------------------------------------------------------------------
+
+def test_holdings_symbols_prefer_etfs_and_eligibility():
+    import json
+    cat = {e["id"]: e for e in json.loads(fd.CATALOG_PATH.read_text())["funds"]}
+    assert fd.holdings_symbols(cat["VFIAX"])[0] in ("VOO", "SWPPX") and fd.holdings_symbols(cat["VFIAX"])[0] == "VOO"
+    assert fd.holdings_eligible(cat["VFIAX"]) and fd.holdings_eligible(cat["VSMGX"])
+    assert not fd.holdings_eligible(cat["VBTLX"]) and not fd.holdings_eligible(cat["GLD"]) and not fd.holdings_eligible(cat["CASH"])
+
+
+def test_fetch_holdings_parses_yfinance_shape(monkeypatch):
+    import types
+    th = pd.DataFrame({"Name": ["NVIDIA Corp", "Apple Inc"], "Holding Percent": [0.0712, 0.0655]}, index=pd.Index(["NVDA", "AAPL"], name="Symbol"))
+    fake = types.SimpleNamespace(funds_data=types.SimpleNamespace(
+        top_holdings=th, sector_weightings={"technology": 0.31, "healthcare": 0.1}, asset_classes={"stockPosition": 0.99}))
+    monkeypatch.setitem(sys.modules, "yfinance", types.SimpleNamespace(Ticker=lambda sym: fake))
+    h = fd.fetch_holdings(["VOO"])
+    assert h["top"][0] == {"symbol": "NVDA", "name": "NVIDIA Corp", "pct": 7.12}
+    assert h["topTotal"] == pytest.approx(13.67)
+    assert h["sectors"]["technology"] == 31.0 and h["assets"]["stockPosition"] == 99.0
+
+
+def test_fetch_holdings_tries_next_symbol_then_raises(monkeypatch):
+    import types
+
+    def ticker(sym):
+        if sym == "BAD":
+            raise RuntimeError("boom")
+        return types.SimpleNamespace(funds_data=types.SimpleNamespace(top_holdings=pd.DataFrame(), sector_weightings={}, asset_classes={}))
+
+    monkeypatch.setitem(sys.modules, "yfinance", types.SimpleNamespace(Ticker=ticker))
+    with pytest.raises(RuntimeError):
+        fd.fetch_holdings(["BAD", "EMPTY"])
+
+
+def test_main_writes_holdings_and_lists_them_in_manifest(monkeypatch, tmp_path):
+    import json
+    monkeypatch.setenv("FETCH_HOLDINGS", "1")
+    monkeypatch.setattr(fd, "REQUEST_PAUSE_SECONDS", 0)
+    monkeypatch.setattr(fd, "fetch_holdings", lambda syms: {"symbol": syms[0], "top": [{"symbol": "X", "name": "X Corp", "pct": 5.0}], "topTotal": 5.0})
+    assert _run_main(monkeypatch, tmp_path, lambda t: (_fake_daily(3), None, "yfinance")) == 0
+    manifest = json.loads((tmp_path / "manifest.json").read_text())
+    assert "VFIAX" in manifest["holdings"] and "VBTLX" not in manifest["holdings"]
+    h = json.loads((tmp_path / "holdings" / "VFIAX.json").read_text())
+    assert h["top"][0]["symbol"] == "X" and h["id"] == "VFIAX"
+
+
+def test_holdings_failures_do_not_fail_the_run(monkeypatch, tmp_path):
+    monkeypatch.setenv("FETCH_HOLDINGS", "1")
+    monkeypatch.setattr(fd, "REQUEST_PAUSE_SECONDS", 0)
+    monkeypatch.setattr(fd, "fetch_holdings", lambda syms: (_ for _ in ()).throw(RuntimeError("nope")))
+    assert _run_main(monkeypatch, tmp_path, lambda t: (_fake_daily(3), None, "yfinance")) == 0
+
+
+def test_blend_with_monthly_cash_part():
+    weekly = pd.Series(100 * 1.001 ** np.arange(80), index=pd.date_range("2020-01-03", periods=80, freq="W-FRI"))
+    cash = pd.Series(100 + np.arange(20) * 0.3, index=pd.date_range("2019-12-01", periods=20, freq="MS"))
+    out = fd.blend_series({"A": weekly, "CASH": cash}, {"A": 0.5, "CASH": 0.5}, "quarterly")
+    assert len(out) > 70 and out.index.is_monotonic_increasing
+    never = fd.blend_series({"A": weekly, "CASH": cash}, {"A": 0.5, "CASH": 0.5}, "never")
+    assert never.iloc[-1] != out.iloc[-1]
+
+
+def test_fetch_fred_falls_back_to_dbnomics(monkeypatch):
+    monkeypatch.setattr(fd.time, "sleep", lambda s: None)
+    monkeypatch.setattr(fd, "_fred_from_fred", lambda sid: (_ for _ in ()).throw(TimeoutError("slow")))
+    monkeypatch.setattr(fd, "_fred_from_dbnomics", lambda sid: pd.Series([1.0, 2.0], index=pd.to_datetime(["2020-01-01", "2020-02-01"])))
+    s = fd.fetch_fred("CPIAUCSL")
+    assert list(s.values) == [1.0, 2.0]
+
+
+def test_fetch_fred_raises_when_both_fail(monkeypatch):
+    monkeypatch.setattr(fd.time, "sleep", lambda s: None)
+    monkeypatch.setattr(fd, "_fred_from_fred", lambda sid: (_ for _ in ()).throw(TimeoutError("slow")))
+    monkeypatch.setattr(fd, "_fred_from_dbnomics", lambda sid: (_ for _ in ()).throw(ValueError("down")))
+    with pytest.raises(RuntimeError, match="FRED.*DB.nomics"):
+        fd.fetch_fred("CPIAUCSL")

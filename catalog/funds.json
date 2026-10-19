@@ -1,523 +1,3091 @@
 {
-  "version": 1,
+  "version": 2,
   "notes": "Hand-curated catalog. Each entry is one EXPOSURE (one line on the chart). Funds that track the same index at different providers are merged into one entry and listed under 'tickers'. 'data' says how the price history is built. Descriptions are written from general knowledge; always confirm details on the provider's own page (links are in each fund's info box).",
   "funds": [
     {
-      "id": "VFIAX", "name": "S&P 500 Index", "short": "S&P 500", "kind": "index",
-      "assetClass": "us-stock", "category": "Large-cap blend", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VFIAX",
+      "name": "S&P 500 Index",
+      "short": "S&P 500",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Large-cap blend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "S&P 500 Index",
-      "tickers": { "Vanguard": ["VFIAX", "VOO"], "Schwab": ["SWPPX"] },
-      "data": { "type": "fund", "ticker": "VFIAX", "extends": ["VFINX"] },
+      "tickers": {
+        "Vanguard": [
+          "VFIAX",
+          "VOO"
+        ],
+        "Schwab": [
+          "SWPPX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VFIAX",
+        "extends": [
+          "VFINX"
+        ]
+      },
       "purpose": "The classic core holding: broad exposure to the large US companies that drive most of the US stock market's value.",
       "overview": "Holds roughly 500 of the largest US companies, weighted by market value, so the biggest handful of companies make up a large share of the fund.",
       "goal": "Match the return of the S&P 500 Index at very low cost.",
       "note": "Vanguard's VFIAX (mutual fund), Vanguard's VOO (ETF) and Schwab's SWPPX all track the S&P 500, so they share one line here. History before the Admiral share class launched uses the older Investor class (VFINX)."
     },
     {
-      "id": "VTSAX", "name": "Total US Stock Market", "short": "Total US Market", "kind": "index",
-      "assetClass": "us-stock", "category": "Broad market", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VTSAX",
+      "name": "Total US Stock Market",
+      "short": "Total US Market",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Broad market",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Total Market Index (Vanguard)",
-      "tickers": { "Vanguard": ["VTSAX", "VTI"], "Schwab": ["SWTSX", "SCHB"] },
-      "data": { "type": "fund", "ticker": "VTSAX", "extends": ["VTSMX"] },
+      "tickers": {
+        "Vanguard": [
+          "VTSAX",
+          "VTI"
+        ],
+        "Schwab": [
+          "SWTSX",
+          "SCHB"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTSAX",
+        "extends": [
+          "VTSMX"
+        ]
+      },
       "purpose": "One-fund exposure to the entire US stock market, large through small companies.",
       "overview": "Thousands of US stocks weighted by market value. Large companies dominate, with a small slice of mid-size and small companies.",
       "goal": "Track the performance of the whole US stock market at low cost.",
       "note": "Schwab's SWTSX and SCHB follow similar but not identical total-market indexes, so returns differ slightly from Vanguard's. History before the Admiral class launched uses the Investor class (VTSMX)."
     },
     {
-      "id": "VEXAX", "name": "US Extended Market (mid and small companies)", "short": "US Extended Market", "kind": "index",
-      "assetClass": "us-stock", "category": "Mid and small-cap", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VEXAX",
+      "name": "US Extended Market (mid and small companies)",
+      "short": "US Extended Market",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Mid and small-cap",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "S&P Completion Index",
-      "tickers": { "Vanguard": ["VEXAX", "VXF"] },
-      "data": { "type": "fund", "ticker": "VEXAX", "extends": ["VEXMX"] },
+      "tickers": {
+        "Vanguard": [
+          "VEXAX",
+          "VXF"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VEXAX",
+        "extends": [
+          "VEXMX"
+        ]
+      },
       "purpose": "Adds the mid-size and small US companies that an S&P 500 fund leaves out.",
       "overview": "Holds US stocks that are not in the S&P 500, so it covers the rest of the US market outside the largest companies.",
       "goal": "Track the part of the US stock market outside the S&P 500."
     },
     {
-      "id": "VIGAX", "name": "US Large-Cap Growth", "short": "US Large Growth", "kind": "index",
-      "assetClass": "us-stock", "category": "Growth", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VIGAX",
+      "name": "US Large-Cap Growth",
+      "short": "US Large Growth",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Growth",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Large Cap Growth Index",
-      "tickers": { "Vanguard": ["VIGAX", "VUG"], "Schwab": ["SCHG"] },
-      "data": { "type": "fund", "ticker": "VIGAX", "extends": ["VIGRX"] },
+      "tickers": {
+        "Vanguard": [
+          "VIGAX",
+          "VUG"
+        ],
+        "Schwab": [
+          "SCHG"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VIGAX",
+        "extends": [
+          "VIGRX"
+        ]
+      },
       "purpose": "Tilts toward large US companies with faster expected earnings growth, usually technology-heavy.",
       "overview": "Large US stocks screened for growth characteristics, weighted by market value.",
       "goal": "Track a large-cap growth index. It tends to gain more in bull markets and fall harder when growth stocks sell off.",
       "note": "Schwab's SCHG follows a different growth index, so it is similar but not identical."
     },
     {
-      "id": "VVIAX", "name": "US Large-Cap Value", "short": "US Large Value", "kind": "index",
-      "assetClass": "us-stock", "category": "Value", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VVIAX",
+      "name": "US Large-Cap Value",
+      "short": "US Large Value",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Value",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Large Cap Value Index",
-      "tickers": { "Vanguard": ["VVIAX", "VTV"], "Schwab": ["SCHV"] },
-      "data": { "type": "fund", "ticker": "VVIAX", "extends": ["VIVAX"] },
+      "tickers": {
+        "Vanguard": [
+          "VVIAX",
+          "VTV"
+        ],
+        "Schwab": [
+          "SCHV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VVIAX",
+        "extends": [
+          "VIVAX"
+        ]
+      },
       "purpose": "Tilts toward large US companies that look inexpensive relative to earnings or assets, often banks, energy and industrials.",
       "overview": "Large US stocks screened for value characteristics, weighted by market value.",
       "goal": "Track a large-cap value index. It has often held up better when growth stocks fall.",
       "note": "Schwab's SCHV follows a different value index, so it is similar but not identical."
     },
     {
-      "id": "VIMAX", "name": "US Mid-Cap", "short": "US Mid-Cap", "kind": "index",
-      "assetClass": "us-stock", "category": "Mid and small-cap", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VIMAX",
+      "name": "US Mid-Cap",
+      "short": "US Mid-Cap",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Mid and small-cap",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Mid Cap Index",
-      "tickers": { "Vanguard": ["VIMAX", "VO"], "Schwab": ["SCHM"] },
-      "data": { "type": "fund", "ticker": "VIMAX", "extends": ["VIMSX"] },
+      "tickers": {
+        "Vanguard": [
+          "VIMAX",
+          "VO"
+        ],
+        "Schwab": [
+          "SCHM"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VIMAX",
+        "extends": [
+          "VIMSX"
+        ]
+      },
       "purpose": "Exposure to mid-size US companies, between the giants and the small caps.",
       "overview": "Hundreds of mid-size US stocks weighted by market value.",
       "goal": "Track a mid-cap index at low cost."
     },
     {
-      "id": "VSMAX", "name": "US Small-Cap", "short": "US Small-Cap", "kind": "index",
-      "assetClass": "us-stock", "category": "Mid and small-cap", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VSMAX",
+      "name": "US Small-Cap",
+      "short": "US Small-Cap",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Mid and small-cap",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Small Cap Index",
-      "tickers": { "Vanguard": ["VSMAX", "VB"], "Schwab": ["SCHA"] },
-      "data": { "type": "fund", "ticker": "VSMAX", "extends": ["NAESX"] },
+      "tickers": {
+        "Vanguard": [
+          "VSMAX",
+          "VB"
+        ],
+        "Schwab": [
+          "SCHA"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VSMAX",
+        "extends": [
+          "NAESX"
+        ]
+      },
       "purpose": "Exposure to smaller US companies, which can grow faster but swing more than large companies.",
       "overview": "Well over a thousand small US stocks weighted by market value.",
       "goal": "Track a small-cap index at low cost."
     },
     {
-      "id": "VSIAX", "name": "US Small-Cap Value", "short": "US Small Value", "kind": "index",
-      "assetClass": "us-stock", "category": "Mid and small-cap", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VSIAX",
+      "name": "US Small-Cap Value",
+      "short": "US Small Value",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Mid and small-cap",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "CRSP US Small Cap Value Index",
-      "tickers": { "Vanguard": ["VSIAX", "VBR"] },
-      "data": { "type": "fund", "ticker": "VSIAX", "extends": ["VISVX"] },
+      "tickers": {
+        "Vanguard": [
+          "VSIAX",
+          "VBR"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VSIAX",
+        "extends": [
+          "VISVX"
+        ]
+      },
       "purpose": "A tilt toward small, inexpensive US companies, a style that has historically had a long-run return premium with long dry spells.",
       "overview": "Small US stocks screened for value characteristics.",
       "goal": "Track a small-cap value index."
     },
     {
-      "id": "VIG", "name": "US Dividend Growth (Dividend Appreciation)", "short": "Dividend Growth", "kind": "index",
-      "assetClass": "us-stock", "category": "Dividend", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "VIG",
+      "name": "US Dividend Growth (Dividend Appreciation)",
+      "short": "Dividend Growth",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "S&P U.S. Dividend Growers Index",
-      "tickers": { "Vanguard": ["VDADX", "VIG"] },
-      "data": { "type": "fund", "ticker": "VIG", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VDADX",
+          "VIG"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VIG",
+        "extends": []
+      },
       "purpose": "Focuses on large US companies with a record of raising their dividends year after year.",
       "overview": "Large US stocks that have grown dividends for many consecutive years, excluding the very highest yielders.",
-      "goal": "Track an index of dividend growers. It is quality-oriented and usually lower-yielding than a high-dividend fund."
+      "goal": "Track an index of dividend growers. It is quality-oriented and usually lower-yielding than a high-dividend fund.",
+      "tags": [
+        "dividend"
+      ]
     },
     {
-      "id": "VYM", "name": "US High Dividend Yield", "short": "High Dividend Yield", "kind": "index",
-      "assetClass": "us-stock", "category": "Dividend", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "VYM",
+      "name": "US High Dividend Yield",
+      "short": "High Dividend Yield",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "FTSE High Dividend Yield Index",
-      "tickers": { "Vanguard": ["VHYAX", "VYM"] },
-      "data": { "type": "fund", "ticker": "VYM", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VHYAX",
+          "VYM"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VYM",
+        "extends": []
+      },
       "purpose": "Income-oriented US stocks: companies that pay higher-than-average dividends.",
       "overview": "Hundreds of US stocks forecast to pay above-average dividends, with large weights in financials, healthcare and consumer staples.",
-      "goal": "Track a high-dividend-yield index."
+      "goal": "Track a high-dividend-yield index.",
+      "tags": [
+        "dividend"
+      ]
     },
     {
-      "id": "SCHD", "name": "US Dividend Equity (Schwab)", "short": "Schwab US Dividend", "kind": "index",
-      "assetClass": "us-stock", "category": "Dividend", "region": "us", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "SCHD",
+      "name": "US Dividend Equity (Schwab)",
+      "short": "Schwab US Dividend",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "Dow Jones U.S. Dividend 100 Index",
-      "tickers": { "Schwab": ["SCHD"] },
-      "data": { "type": "fund", "ticker": "SCHD", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SCHD"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SCHD",
+        "extends": []
+      },
       "purpose": "Dividend-focused US stocks screened for dividend history and financial strength.",
       "overview": "About 100 US companies selected on dividend record, cash flow and return on equity.",
-      "goal": "Track an index of high-quality dividend payers."
+      "goal": "Track an index of high-quality dividend payers.",
+      "tags": [
+        "dividend"
+      ]
     },
     {
-      "id": "VTIAX", "name": "Total International Stock", "short": "Total International", "kind": "index",
-      "assetClass": "intl-stock", "category": "Broad international", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VTIAX",
+      "name": "Total International Stock",
+      "short": "Total International",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Broad international",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "FTSE Global All Cap ex US Index",
-      "tickers": { "Vanguard": ["VTIAX", "VXUS"] },
-      "data": { "type": "fund", "ticker": "VTIAX", "extends": ["VGTSX"] },
+      "tickers": {
+        "Vanguard": [
+          "VTIAX",
+          "VXUS"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTIAX",
+        "extends": [
+          "VGTSX"
+        ]
+      },
       "purpose": "One-fund exposure to stocks outside the US, developed and emerging markets together.",
       "overview": "Thousands of non-US companies across Europe, Asia-Pacific and emerging markets, weighted by market value.",
       "goal": "Track the performance of the non-US stock market."
     },
     {
-      "id": "VTMGX", "name": "Developed Markets ex-US", "short": "Developed ex-US", "kind": "index",
-      "assetClass": "intl-stock", "category": "Developed international", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VTMGX",
+      "name": "Developed Markets ex-US",
+      "short": "Developed ex-US",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Developed international",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "FTSE Developed All Cap ex US Index",
-      "tickers": { "Vanguard": ["VTMGX", "VEA"], "Schwab": ["SCHF"] },
-      "data": { "type": "fund", "ticker": "VTMGX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTMGX",
+          "VEA"
+        ],
+        "Schwab": [
+          "SCHF"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTMGX",
+        "extends": []
+      },
       "purpose": "International diversification limited to established markets such as Japan, the UK, Canada and Europe.",
       "overview": "Thousands of stocks in developed countries outside the US, weighted by market value.",
       "goal": "Track developed-market stocks outside the US.",
       "note": "Schwab's SCHF tracks a similar but not identical FTSE developed-markets index."
     },
     {
-      "id": "SWISX", "name": "Schwab International Index", "short": "Schwab International", "kind": "index",
-      "assetClass": "intl-stock", "category": "Developed international", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "SWISX",
+      "name": "Schwab International Index",
+      "short": "Schwab International",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Developed international",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "Schwab International Index (large companies in developed markets outside the US)",
-      "tickers": { "Schwab": ["SWISX"] },
-      "data": { "type": "fund", "ticker": "SWISX", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SWISX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SWISX",
+        "extends": []
+      },
       "purpose": "A long-running international index fund, useful because its history reaches back to the early 1990s.",
       "overview": "Large companies in developed markets outside the US.",
       "goal": "Track a large-cap developed international index."
     },
     {
-      "id": "VEMAX", "name": "Emerging Markets Stock", "short": "Emerging Markets", "kind": "index",
-      "assetClass": "intl-stock", "category": "Emerging markets", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "VEMAX",
+      "name": "Emerging Markets Stock",
+      "short": "Emerging Markets",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Emerging markets",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "FTSE Emerging Markets All Cap China A Inclusion Index",
-      "tickers": { "Vanguard": ["VEMAX", "VWO"], "Schwab": ["SCHE"] },
-      "data": { "type": "fund", "ticker": "VEMAX", "extends": ["VEIEX"] },
+      "tickers": {
+        "Vanguard": [
+          "VEMAX",
+          "VWO"
+        ],
+        "Schwab": [
+          "SCHE"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VEMAX",
+        "extends": [
+          "VEIEX"
+        ]
+      },
       "purpose": "Exposure to faster-growing but more volatile economies such as China, India, Taiwan and Brazil.",
       "overview": "Thousands of stocks in emerging countries, weighted by market value.",
       "goal": "Track emerging-market stocks.",
       "note": "Schwab's SCHE follows the related FTSE Emerging Index, so it differs slightly (for example, in how China is treated)."
     },
     {
-      "id": "VGK", "name": "Europe Stock", "short": "Europe", "kind": "index",
-      "assetClass": "intl-stock", "category": "Regional", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "VGK",
+      "name": "Europe Stock",
+      "short": "Europe",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Regional",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "FTSE Developed Europe All Cap Index",
-      "tickers": { "Vanguard": ["VEUSX", "VGK"] },
-      "data": { "type": "fund", "ticker": "VGK", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VEUSX",
+          "VGK"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGK",
+        "extends": []
+      },
       "purpose": "A regional bet on European companies, including the UK and Switzerland.",
       "overview": "Large and mid-size stocks across developed European countries.",
       "goal": "Track developed-Europe stocks."
     },
     {
-      "id": "VPL", "name": "Pacific Stock", "short": "Pacific", "kind": "index",
-      "assetClass": "intl-stock", "category": "Regional", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "VPL",
+      "name": "Pacific Stock",
+      "short": "Pacific",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Regional",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "FTSE Developed Asia Pacific All Cap Index",
-      "tickers": { "Vanguard": ["VPADX", "VPL"] },
-      "data": { "type": "fund", "ticker": "VPL", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VPADX",
+          "VPL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VPL",
+        "extends": []
+      },
       "purpose": "A regional bet on developed Asia-Pacific markets, mainly Japan and Australia.",
       "overview": "Large and mid-size stocks in developed Asia-Pacific countries.",
       "goal": "Track developed Asia-Pacific stocks."
     },
     {
-      "id": "VBTLX", "name": "Total Bond Market", "short": "Total Bond Market", "kind": "index",
-      "assetClass": "bond", "category": "Broad US bonds", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "mutual-fund",
+      "id": "VBTLX",
+      "name": "Total Bond Market",
+      "short": "Total Bond Market",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Broad US bonds",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
       "index": "Bloomberg U.S. Aggregate Float Adjusted Index",
-      "tickers": { "Vanguard": ["VBTLX", "BND"], "Schwab": ["SWAGX", "SCHZ"] },
-      "data": { "type": "fund", "ticker": "VBTLX", "extends": ["VBMFX"] },
+      "tickers": {
+        "Vanguard": [
+          "VBTLX",
+          "BND"
+        ],
+        "Schwab": [
+          "SWAGX",
+          "SCHZ"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VBTLX",
+        "extends": [
+          "VBMFX"
+        ]
+      },
       "purpose": "The standard core bond holding: a ballast that has usually held up when stocks fell, though not in 2022.",
       "overview": "Thousands of US investment-grade bonds (Treasuries, mortgage-backed securities and corporate bonds) of mostly medium maturity.",
       "goal": "Track the broad US investment-grade bond market.",
-      "note": "Schwab's SWAGX and SCHZ follow the Bloomberg U.S. Aggregate Index without the float adjustment, so they are near-identical. History before the Admiral class launched uses the Investor class (VBMFX)."
+      "note": "Schwab's SWAGX and SCHZ follow the Bloomberg U.S. Aggregate Index without the float adjustment, so they are near-identical. History before the Admiral class launched uses the Investor class (VBMFX).",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "VBIRX", "name": "Short-Term Bond Index (1 to 5 years)", "short": "Short-Term Bond", "kind": "index",
-      "assetClass": "bond", "category": "By maturity", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "mutual-fund",
+      "id": "VBIRX",
+      "name": "Short-Term Bond Index (1 to 5 years)",
+      "short": "Short-Term Bond",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "By maturity",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
       "index": "Bloomberg U.S. 1-5 Year Government/Credit Float Adjusted Index",
-      "tickers": { "Vanguard": ["VBIRX", "BSV"] },
-      "data": { "type": "fund", "ticker": "VBIRX", "extends": ["VBISX"] },
+      "tickers": {
+        "Vanguard": [
+          "VBIRX",
+          "BSV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VBIRX",
+        "extends": [
+          "VBISX"
+        ]
+      },
       "purpose": "Lower interest-rate sensitivity than a total-bond fund, so smaller swings when rates move.",
       "overview": "US government and investment-grade corporate bonds maturing in one to five years.",
-      "goal": "Track short-term US government and corporate bonds."
+      "goal": "Track short-term US government and corporate bonds.",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "VBILX", "name": "Intermediate-Term Bond Index (5 to 10 years)", "short": "Intermediate Bond", "kind": "index",
-      "assetClass": "bond", "category": "By maturity", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "mutual-fund",
+      "id": "VBILX",
+      "name": "Intermediate-Term Bond Index (5 to 10 years)",
+      "short": "Intermediate Bond",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "By maturity",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
       "index": "Bloomberg U.S. 5-10 Year Government/Credit Float Adjusted Index",
-      "tickers": { "Vanguard": ["VBILX", "BIV"] },
-      "data": { "type": "fund", "ticker": "VBILX", "extends": ["VBIIX"] },
+      "tickers": {
+        "Vanguard": [
+          "VBILX",
+          "BIV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VBILX",
+        "extends": [
+          "VBIIX"
+        ]
+      },
       "purpose": "Middle ground on interest-rate sensitivity and yield.",
       "overview": "US government and investment-grade corporate bonds maturing in five to ten years.",
       "goal": "Track intermediate-term US government and corporate bonds."
     },
     {
-      "id": "VBLAX", "name": "Long-Term Bond Index (10+ years)", "short": "Long-Term Bond", "kind": "index",
-      "assetClass": "bond", "category": "By maturity", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "mutual-fund",
+      "id": "VBLAX",
+      "name": "Long-Term Bond Index (10+ years)",
+      "short": "Long-Term Bond",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "By maturity",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
       "index": "Bloomberg U.S. Long Government/Credit Float Adjusted Index",
-      "tickers": { "Vanguard": ["VBLAX", "BLV"] },
-      "data": { "type": "fund", "ticker": "VBLAX", "extends": ["VBLTX"] },
+      "tickers": {
+        "Vanguard": [
+          "VBLAX",
+          "BLV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VBLAX",
+        "extends": [
+          "VBLTX"
+        ]
+      },
       "purpose": "High sensitivity to interest rates: can rally strongly when rates fall and drop sharply when they rise.",
       "overview": "US government and investment-grade corporate bonds maturing in more than ten years.",
       "goal": "Track long-term US government and corporate bonds."
     },
     {
-      "id": "VGSH", "name": "Short-Term Treasury (1 to 3 years)", "short": "Short Treasury", "kind": "index",
-      "assetClass": "bond", "category": "US Treasury", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VGSH",
+      "name": "Short-Term Treasury (1 to 3 years)",
+      "short": "Short Treasury",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "US Treasury",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. Treasury 1-3 Year Index",
-      "tickers": { "Vanguard": ["VGSH"], "Schwab": ["SCHO"] },
-      "data": { "type": "fund", "ticker": "VGSH", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VGSH"
+        ],
+        "Schwab": [
+          "SCHO"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGSH",
+        "extends": []
+      },
       "purpose": "Very low credit risk and low rate sensitivity; the near-cash end of the bond spectrum.",
       "overview": "US Treasury notes maturing in one to three years.",
       "goal": "Track short-term US Treasuries.",
-      "note": "Also available as a mutual fund share class at Vanguard. Schwab's SCHO tracks the same type of index."
+      "note": "Also available as a mutual fund share class at Vanguard. Schwab's SCHO tracks the same type of index.",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "VGIT", "name": "Intermediate-Term Treasury (3 to 10 years)", "short": "Intermediate Treasury", "kind": "index",
-      "assetClass": "bond", "category": "US Treasury", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VGIT",
+      "name": "Intermediate-Term Treasury (3 to 10 years)",
+      "short": "Intermediate Treasury",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "US Treasury",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. Treasury 3-10 Year Index",
-      "tickers": { "Vanguard": ["VGIT"], "Schwab": ["SCHR"] },
-      "data": { "type": "fund", "ticker": "VGIT", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VGIT"
+        ],
+        "Schwab": [
+          "SCHR"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGIT",
+        "extends": []
+      },
       "purpose": "Government-backed bonds with moderate rate sensitivity.",
       "overview": "US Treasury notes maturing in three to ten years.",
-      "goal": "Track intermediate-term US Treasuries."
+      "goal": "Track intermediate-term US Treasuries.",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "VGLT", "name": "Long-Term Treasury (10+ years)", "short": "Long Treasury", "kind": "index",
-      "assetClass": "bond", "category": "US Treasury", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VGLT",
+      "name": "Long-Term Treasury (10+ years)",
+      "short": "Long Treasury",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "US Treasury",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. Treasury Long Index",
-      "tickers": { "Vanguard": ["VGLT"], "Schwab": ["SCHQ"] },
-      "data": { "type": "fund", "ticker": "VGLT", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VGLT"
+        ],
+        "Schwab": [
+          "SCHQ"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGLT",
+        "extends": []
+      },
       "purpose": "Historically the strongest diversifier against stock crashes, but very sensitive to rising rates, as 2022 showed.",
       "overview": "US Treasury bonds maturing in more than ten years.",
       "goal": "Track long-term US Treasuries."
     },
     {
-      "id": "SCHP", "name": "US TIPS (inflation-protected Treasuries)", "short": "TIPS", "kind": "index",
-      "assetClass": "bond", "category": "Inflation-protected", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "SCHP",
+      "name": "US TIPS (inflation-protected Treasuries)",
+      "short": "TIPS",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Inflation-protected",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. Series-L (TIPS) Index",
-      "tickers": { "Schwab": ["SCHP"] },
-      "data": { "type": "fund", "ticker": "SCHP", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SCHP"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SCHP",
+        "extends": []
+      },
       "purpose": "Principal rises with US inflation, giving a hedge against unexpected inflation.",
       "overview": "Treasury Inflation-Protected Securities across maturities.",
       "goal": "Track the US TIPS market."
     },
     {
-      "id": "VTIP", "name": "Short-Term Inflation-Protected Securities (0 to 5 years)", "short": "Short-Term TIPS", "kind": "index",
-      "assetClass": "bond", "category": "Inflation-protected", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VTIP",
+      "name": "Short-Term Inflation-Protected Securities (0 to 5 years)",
+      "short": "Short-Term TIPS",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Inflation-protected",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. Treasury Inflation-Protected Securities (TIPS) 0-5 Year Index",
-      "tickers": { "Vanguard": ["VTAPX", "VTIP"] },
-      "data": { "type": "fund", "ticker": "VTIP", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTAPX",
+          "VTIP"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTIP",
+        "extends": []
+      },
       "purpose": "Inflation protection with much lower interest-rate sensitivity than longer TIPS.",
       "overview": "TIPS maturing in under five years.",
-      "goal": "Track short-term US TIPS."
+      "goal": "Track short-term US TIPS.",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "VCIT", "name": "Intermediate-Term Corporate Bonds", "short": "Corporate Bonds", "kind": "index",
-      "assetClass": "bond", "category": "Corporate", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VCIT",
+      "name": "Intermediate-Term Corporate Bonds",
+      "short": "Corporate Bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Corporate",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg U.S. 5-10 Year Corporate Bond Index",
-      "tickers": { "Vanguard": ["VCIT"] },
-      "data": { "type": "fund", "ticker": "VCIT", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VCIT"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VCIT",
+        "extends": []
+      },
       "purpose": "Extra yield over Treasuries in exchange for credit risk; tends to fall more than Treasuries in stock crashes.",
       "overview": "Investment-grade US corporate bonds maturing in five to ten years.",
       "goal": "Track intermediate-term investment-grade corporate bonds."
     },
     {
-      "id": "VTEB", "name": "National Municipal Bonds (tax-exempt)", "short": "Municipal Bonds", "kind": "index",
-      "assetClass": "bond", "category": "Municipal", "region": "us", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "VTEB",
+      "name": "National Municipal Bonds (tax-exempt)",
+      "short": "Municipal Bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Municipal",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "S&P National AMT-Free Municipal Bond Index",
-      "tickers": { "Vanguard": ["VTEB"] },
-      "data": { "type": "fund", "ticker": "VTEB", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTEB"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTEB",
+        "extends": []
+      },
       "purpose": "Interest is generally exempt from federal income tax, which mainly benefits investors in higher tax brackets.",
       "overview": "Investment-grade US municipal bonds from across the country.",
       "goal": "Track the national tax-exempt municipal bond market."
     },
     {
-      "id": "BNDX", "name": "Total International Bond (USD-hedged)", "short": "International Bond", "kind": "index",
-      "assetClass": "bond", "category": "International bonds", "region": "intl", "mix": "bond", "equityPct": 0, "wrapper": "etf",
+      "id": "BNDX",
+      "name": "Total International Bond (USD-hedged)",
+      "short": "International Bond",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "International bonds",
+      "region": "intl",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
       "index": "Bloomberg Global Aggregate ex-USD Float Adjusted RIC Capped Index (USD Hedged)",
-      "tickers": { "Vanguard": ["VTABX", "BNDX"] },
-      "data": { "type": "fund", "ticker": "BNDX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTABX",
+          "BNDX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "BNDX",
+        "extends": []
+      },
       "purpose": "Diversifies bond holdings beyond the US while using currency hedging to dampen exchange-rate swings.",
       "overview": "Investment-grade bonds issued outside the US, with currency exposure hedged back to US dollars.",
       "goal": "Track non-US investment-grade bonds, hedged to dollars."
     },
     {
-      "id": "VSCGX", "name": "LifeStrategy Conservative Growth (about 40% stocks)", "short": "LifeStrategy 40/60", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 40, "wrapper": "mutual-fund",
+      "id": "VSCGX",
+      "name": "LifeStrategy Conservative Growth (about 40% stocks)",
+      "short": "LifeStrategy 40/60",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 40,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds: about 40% stocks and 60% bonds, US and international",
-      "tickers": { "Vanguard": ["VSCGX"] },
-      "data": { "type": "fund", "ticker": "VSCGX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VSCGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VSCGX",
+        "extends": []
+      },
       "purpose": "A complete portfolio in one fund with a bond-heavy tilt for lower volatility.",
       "overview": "Holds a handful of Vanguard index funds (US stock, international stock, US bond, international bond) and keeps the mix near its target.",
       "goal": "Provide income and modest growth with lower risk than an all-stock portfolio."
     },
     {
-      "id": "VSMGX", "name": "LifeStrategy Moderate Growth (about 60% stocks)", "short": "LifeStrategy 60/40", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 60, "wrapper": "mutual-fund",
+      "id": "VSMGX",
+      "name": "LifeStrategy Moderate Growth (about 60% stocks)",
+      "short": "LifeStrategy 60/40",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 60,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds: about 60% stocks and 40% bonds, US and international",
-      "tickers": { "Vanguard": ["VSMGX"] },
-      "data": { "type": "fund", "ticker": "VSMGX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VSMGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VSMGX",
+        "extends": []
+      },
       "purpose": "A complete classic 60/40 portfolio in one fund.",
       "overview": "Holds Vanguard index funds for US stock, international stock, US bonds and international bonds and keeps the mix near its target.",
       "goal": "Provide moderate growth with moderate risk."
     },
     {
-      "id": "VASGX", "name": "LifeStrategy Growth (about 80% stocks)", "short": "LifeStrategy 80/20", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 80, "wrapper": "mutual-fund",
+      "id": "VASGX",
+      "name": "LifeStrategy Growth (about 80% stocks)",
+      "short": "LifeStrategy 80/20",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 80,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds: about 80% stocks and 20% bonds, US and international",
-      "tickers": { "Vanguard": ["VASGX"] },
-      "data": { "type": "fund", "ticker": "VASGX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VASGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VASGX",
+        "extends": []
+      },
       "purpose": "A growth-oriented portfolio in one fund, with a bond cushion.",
       "overview": "Holds Vanguard index funds for US stock, international stock, US bonds and international bonds and keeps the mix near its target.",
       "goal": "Provide long-term growth with some risk reduction from bonds."
     },
     {
-      "id": "VASIX", "name": "LifeStrategy Income (about 20% stocks)", "short": "LifeStrategy 20/80", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 20, "wrapper": "mutual-fund",
+      "id": "VASIX",
+      "name": "LifeStrategy Income (about 20% stocks)",
+      "short": "LifeStrategy 20/80",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 20,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds: about 20% stocks and 80% bonds, US and international",
-      "tickers": { "Vanguard": ["VASIX"] },
-      "data": { "type": "fund", "ticker": "VASIX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VASIX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VASIX",
+        "extends": []
+      },
       "purpose": "The most conservative LifeStrategy mix: mostly bonds with a small stock allocation.",
       "overview": "Holds Vanguard index funds, mostly bond funds, and keeps the mix near its target.",
       "goal": "Provide income with limited volatility."
     },
     {
-      "id": "VBIAX", "name": "Balanced Index (60% stocks, 40% bonds)", "short": "Balanced Index 60/40", "kind": "index",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "us", "mix": "mixed", "equityPct": 60, "wrapper": "mutual-fund",
+      "id": "VBIAX",
+      "name": "Balanced Index (60% stocks, 40% bonds)",
+      "short": "Balanced Index 60/40",
+      "kind": "index",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 60,
+      "wrapper": "mutual-fund",
       "index": "60% CRSP US Total Market Index and 40% Bloomberg U.S. Aggregate Float Adjusted Index",
-      "tickers": { "Vanguard": ["VBIAX"] },
-      "data": { "type": "fund", "ticker": "VBIAX", "extends": ["VBINX"] },
+      "tickers": {
+        "Vanguard": [
+          "VBIAX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VBIAX",
+        "extends": [
+          "VBINX"
+        ]
+      },
       "purpose": "A US-only 60/40 portfolio in a single fund, with a long track record.",
       "overview": "Holds US stocks and US investment-grade bonds in roughly a 60/40 mix.",
       "goal": "Track a blended index of US stocks and bonds."
     },
     {
-      "id": "VTINX", "name": "Target Retirement Income", "short": "Target Retirement Income", "kind": "target-date",
-      "assetClass": "balanced", "category": "Target-date", "region": "global", "mix": "mixed", "equityPct": null, "wrapper": "mutual-fund",
+      "id": "VTINX",
+      "name": "Target Retirement Income",
+      "short": "Target Retirement Income",
+      "kind": "target-date",
+      "assetClass": "balanced",
+      "category": "Target-date",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": null,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds for people already in retirement; a conservative stock/bond mix",
-      "tickers": { "Vanguard": ["VTINX"] },
-      "data": { "type": "fund", "ticker": "VTINX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTINX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTINX",
+        "extends": []
+      },
       "purpose": "The destination mix of the target-date family: mostly bonds, some stocks, for people already retired.",
       "overview": "A fund of index funds with a conservative stock/bond mix and a modest allocation to inflation-protected bonds.",
       "goal": "Provide current income and some inflation-beating growth with low volatility."
     },
     {
-      "id": "VTHRX", "name": "Target Retirement 2030", "short": "Target 2030", "kind": "target-date",
-      "assetClass": "balanced", "category": "Target-date", "region": "global", "mix": "mixed", "equityPct": null, "wrapper": "mutual-fund",
+      "id": "VTHRX",
+      "name": "Target Retirement 2030",
+      "short": "Target 2030",
+      "kind": "target-date",
+      "assetClass": "balanced",
+      "category": "Target-date",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": null,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds that gradually shifts from stocks to bonds as 2030 approaches",
-      "tickers": { "Vanguard": ["VTHRX"] },
-      "data": { "type": "fund", "ticker": "VTHRX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VTHRX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTHRX",
+        "extends": []
+      },
       "purpose": "A one-fund option for someone retiring around 2030, with the mix shifting automatically over time.",
       "overview": "Holds index funds for US stocks, international stocks and bonds, shifting toward bonds as the target year nears.",
       "goal": "Grow assets early on, then reduce risk as retirement approaches."
     },
     {
-      "id": "VFIFX", "name": "Target Retirement 2050", "short": "Target 2050", "kind": "target-date",
-      "assetClass": "balanced", "category": "Target-date", "region": "global", "mix": "mixed", "equityPct": null, "wrapper": "mutual-fund",
+      "id": "VFIFX",
+      "name": "Target Retirement 2050",
+      "short": "Target 2050",
+      "kind": "target-date",
+      "assetClass": "balanced",
+      "category": "Target-date",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": null,
+      "wrapper": "mutual-fund",
       "index": "Fund of Vanguard index funds that gradually shifts from stocks to bonds as 2050 approaches",
-      "tickers": { "Vanguard": ["VFIFX"] },
-      "data": { "type": "fund", "ticker": "VFIFX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VFIFX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VFIFX",
+        "extends": []
+      },
       "purpose": "A one-fund option for someone retiring around 2050. It is stock-heavy now and shifts toward bonds over decades.",
       "overview": "Holds index funds for US stocks, international stocks and bonds, shifting toward bonds as the target year nears.",
       "goal": "Grow assets early on, then reduce risk as retirement approaches."
     },
     {
-      "id": "SWANX", "name": "Schwab MarketTrack All Equity", "short": "MarketTrack All Equity", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "stock", "equityPct": 100, "wrapper": "mutual-fund",
+      "id": "SWANX",
+      "name": "Schwab MarketTrack All Equity",
+      "short": "MarketTrack All Equity",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
       "index": "Fund of Schwab index funds: all stocks, US and international",
-      "tickers": { "Schwab": ["SWANX"] },
-      "data": { "type": "fund", "ticker": "SWANX", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SWANX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SWANX",
+        "extends": []
+      },
       "purpose": "A diversified all-stock portfolio from Schwab in a single fund.",
       "overview": "Holds Schwab index funds covering US large, small and international stocks.",
       "goal": "Provide long-term growth with an all-stock mix."
     },
     {
-      "id": "SWHGX", "name": "Schwab MarketTrack Growth", "short": "MarketTrack Growth", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 80, "wrapper": "mutual-fund",
+      "id": "SWHGX",
+      "name": "Schwab MarketTrack Growth",
+      "short": "MarketTrack Growth",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 80,
+      "wrapper": "mutual-fund",
       "index": "Fund of Schwab index funds: mostly stocks with a bond allocation",
-      "tickers": { "Schwab": ["SWHGX"] },
-      "data": { "type": "fund", "ticker": "SWHGX", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SWHGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SWHGX",
+        "extends": []
+      },
       "purpose": "A growth-oriented Schwab portfolio in one fund.",
       "overview": "Holds Schwab index funds with a heavy stock allocation and a smaller bond allocation.",
       "goal": "Provide growth with some bond cushion."
     },
     {
-      "id": "SWBGX", "name": "Schwab MarketTrack Balanced", "short": "MarketTrack Balanced", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 60, "wrapper": "mutual-fund",
+      "id": "SWBGX",
+      "name": "Schwab MarketTrack Balanced",
+      "short": "MarketTrack Balanced",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 60,
+      "wrapper": "mutual-fund",
       "index": "Fund of Schwab index funds: a balanced stock and bond mix",
-      "tickers": { "Schwab": ["SWBGX"] },
-      "data": { "type": "fund", "ticker": "SWBGX", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SWBGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SWBGX",
+        "extends": []
+      },
       "purpose": "A balanced Schwab portfolio in one fund.",
       "overview": "Holds Schwab index funds in a stock-and-bond mix of roughly 60/40.",
       "goal": "Provide growth and income with moderate risk."
     },
     {
-      "id": "SWCGX", "name": "Schwab MarketTrack Conservative", "short": "MarketTrack Conservative", "kind": "allocation",
-      "assetClass": "balanced", "category": "Fixed allocation", "region": "global", "mix": "mixed", "equityPct": 40, "wrapper": "mutual-fund",
+      "id": "SWCGX",
+      "name": "Schwab MarketTrack Conservative",
+      "short": "MarketTrack Conservative",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Fixed allocation",
+      "region": "global",
+      "mix": "mixed",
+      "equityPct": 40,
+      "wrapper": "mutual-fund",
       "index": "Fund of Schwab index funds: more bonds than stocks",
-      "tickers": { "Schwab": ["SWCGX"] },
-      "data": { "type": "fund", "ticker": "SWCGX", "extends": [] },
+      "tickers": {
+        "Schwab": [
+          "SWCGX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SWCGX",
+        "extends": []
+      },
       "purpose": "A conservative Schwab portfolio in one fund.",
       "overview": "Holds Schwab index funds with more bonds than stocks.",
       "goal": "Provide income and modest growth with lower volatility."
     },
     {
-      "id": "VNQ", "name": "US Real Estate (REITs)", "short": "US REITs", "kind": "index",
-      "assetClass": "real-assets", "category": "Real estate", "region": "us", "mix": "other", "equityPct": null, "wrapper": "etf",
+      "id": "VNQ",
+      "name": "US Real Estate (REITs)",
+      "short": "US REITs",
+      "kind": "index",
+      "assetClass": "real-assets",
+      "category": "Real estate",
+      "region": "us",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
       "index": "MSCI US Investable Market Real Estate 25/50 Index",
-      "tickers": { "Vanguard": ["VGSLX", "VNQ"], "Schwab": ["SCHH"] },
-      "data": { "type": "fund", "ticker": "VNQ", "extends": ["VGSIX"] },
+      "tickers": {
+        "Vanguard": [
+          "VGSLX",
+          "VNQ"
+        ],
+        "Schwab": [
+          "SCHH"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VNQ",
+        "extends": [
+          "VGSIX"
+        ]
+      },
       "purpose": "Exposure to real estate through publicly traded real estate investment trusts, which pay out most of their income.",
       "overview": "Shares of US REITs: office, retail, residential, industrial, data-center and cell-tower companies.",
       "goal": "Track the US REIT market.",
       "note": "Schwab's SCHH follows a different REIT index, so it is similar but not identical."
     },
     {
-      "id": "VGPMX", "name": "Precious Metals and Mining (actively managed stocks)", "short": "Precious Metals & Mining", "kind": "active",
-      "assetClass": "real-assets", "category": "Precious metals", "region": "global", "mix": "other", "equityPct": null, "wrapper": "mutual-fund",
+      "id": "VGPMX",
+      "name": "Precious Metals and Mining (actively managed stocks)",
+      "short": "Precious Metals & Mining",
+      "kind": "active",
+      "assetClass": "real-assets",
+      "category": "Precious metals",
+      "region": "global",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "mutual-fund",
       "index": "Not an index fund: actively managed",
-      "tickers": { "Vanguard": ["VGPMX"] },
-      "data": { "type": "fund", "ticker": "VGPMX", "extends": [] },
+      "tickers": {
+        "Vanguard": [
+          "VGPMX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGPMX",
+        "extends": []
+      },
       "purpose": "A volatile bet on gold, silver and mining companies. It owns mining stocks, not the metals themselves.",
       "overview": "Shares of companies that mine or process gold, silver and other precious metals, worldwide.",
       "goal": "Long-term growth from precious-metals mining companies.",
       "note": "This is the one actively managed fund in the starter list, included because Vanguard has no gold bullion fund. Mining stocks behave differently from gold itself."
     },
     {
-      "id": "GLD", "name": "Gold (physical bullion)", "short": "Gold", "kind": "commodity",
-      "assetClass": "real-assets", "category": "Precious metals", "region": "global", "mix": "other", "equityPct": null, "wrapper": "etf",
+      "id": "GLD",
+      "name": "Gold (physical bullion)",
+      "short": "Gold",
+      "kind": "commodity",
+      "assetClass": "real-assets",
+      "category": "Precious metals",
+      "region": "global",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
       "index": "Price of gold bullion",
-      "tickers": { "Other": ["GLD", "IAU"] },
-      "data": { "type": "fund", "ticker": "GLD", "extends": [] },
+      "tickers": {
+        "Other": [
+          "GLD",
+          "IAU"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "GLD",
+        "extends": []
+      },
       "purpose": "A store of value that has sometimes risen when stocks and bonds struggled. It pays no income.",
       "overview": "The fund holds physical gold bars and its share price follows the gold price, less fees.",
       "goal": "Track the price of gold.",
-      "note": "Neither Vanguard nor Schwab offers a gold bullion fund. GLD and IAU are widely used alternatives that track gold the same way."
+      "note": "Neither Vanguard nor Schwab offers a gold bullion fund. GLD and IAU are widely used alternatives that track gold the same way.",
+      "tags": [
+        "defensive"
+      ]
     },
     {
-      "id": "SLV", "name": "Silver (physical bullion)", "short": "Silver", "kind": "commodity",
-      "assetClass": "real-assets", "category": "Precious metals", "region": "global", "mix": "other", "equityPct": null, "wrapper": "etf",
+      "id": "SLV",
+      "name": "Silver (physical bullion)",
+      "short": "Silver",
+      "kind": "commodity",
+      "assetClass": "real-assets",
+      "category": "Precious metals",
+      "region": "global",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
       "index": "Price of silver bullion",
-      "tickers": { "Other": ["SLV"] },
-      "data": { "type": "fund", "ticker": "SLV", "extends": [] },
+      "tickers": {
+        "Other": [
+          "SLV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SLV",
+        "extends": []
+      },
       "purpose": "A more volatile cousin of gold that is also used in industry. It pays no income.",
       "overview": "The fund holds physical silver and its share price follows the silver price, less fees.",
       "goal": "Track the price of silver.",
       "note": "Neither Vanguard nor Schwab offers a silver bullion fund."
     },
     {
-      "id": "EFA", "name": "MSCI EAFE (iShares ETF)", "short": "MSCI EAFE", "kind": "benchmark",
-      "assetClass": "reference", "category": "Benchmark", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "EFA",
+      "name": "MSCI EAFE (iShares ETF)",
+      "short": "MSCI EAFE",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "MSCI EAFE Index (developed markets in Europe, Australasia and the Far East)",
-      "tickers": { "Other": ["EFA"] },
-      "data": { "type": "fund", "ticker": "EFA", "extends": [] },
+      "tickers": {
+        "Other": [
+          "EFA"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "EFA",
+        "extends": []
+      },
       "purpose": "A long-standing yardstick for developed international stocks.",
       "overview": "Large and mid-size companies in developed markets outside the US and Canada.",
       "goal": "Track the MSCI EAFE Index.",
       "note": "A benchmark line for comparison, not a Vanguard or Schwab fund."
     },
     {
-      "id": "ACWX", "name": "MSCI ACWI ex-US (iShares ETF)", "short": "MSCI ACWI ex-US", "kind": "benchmark",
-      "assetClass": "reference", "category": "Benchmark", "region": "intl", "mix": "stock", "equityPct": 100, "wrapper": "etf",
+      "id": "ACWX",
+      "name": "MSCI ACWI ex-US (iShares ETF)",
+      "short": "MSCI ACWI ex-US",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
       "index": "MSCI All Country World ex USA Index",
-      "tickers": { "Other": ["ACWX"] },
-      "data": { "type": "fund", "ticker": "ACWX", "extends": [] },
+      "tickers": {
+        "Other": [
+          "ACWX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "ACWX",
+        "extends": []
+      },
       "purpose": "A common yardstick for all non-US stocks, developed and emerging.",
       "overview": "Large and mid-size companies in developed and emerging markets outside the US.",
       "goal": "Track the MSCI ACWI ex USA Index.",
       "note": "A benchmark line for comparison, not a Vanguard or Schwab fund."
     },
     {
-      "id": "BLEND6040", "name": "60/40 Stock/Bond Blend (hypothetical)", "short": "60/40 blend", "kind": "benchmark",
-      "assetClass": "reference", "category": "Benchmark", "region": "us", "mix": "mixed", "equityPct": 60, "wrapper": "reference",
+      "id": "BLEND6040",
+      "name": "60/40 Stock/Bond Blend (hypothetical)",
+      "short": "60/40 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 60,
+      "wrapper": "reference",
       "index": "Calculated here: 60% S&P 500 fund, 40% Total Bond Market fund, rebalanced monthly",
       "tickers": {},
-      "data": { "type": "blend", "weights": { "VFIAX": 0.6, "VBTLX": 0.4 }, "rebalance": "monthly" },
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.6,
+          "VBTLX": 0.4
+        },
+        "rebalance": "monthly"
+      },
       "purpose": "A yardstick for how the classic balanced portfolio behaved in each market.",
       "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line. It ignores trading costs and taxes.",
       "goal": "Show what a simple 60/40 mix would have done.",
       "note": "Hypothetical. Not an investable fund."
     },
     {
-      "id": "CASH", "name": "Cash: 3-month Treasury bill", "short": "Cash (T-bill)", "kind": "benchmark",
-      "assetClass": "reference", "category": "Benchmark", "region": "us", "mix": "other", "equityPct": null, "wrapper": "reference",
+      "id": "CASH",
+      "name": "Cash: 3-month Treasury bill",
+      "short": "Cash (T-bill)",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "reference",
       "index": "Growth of cash earning the 3-month Treasury bill rate (FRED series TB3MS)",
       "tickers": {},
-      "data": { "type": "fred_cash", "series": "TB3MS" },
+      "data": {
+        "type": "fred_cash",
+        "series": "TB3MS"
+      },
       "purpose": "The risk-free yardstick: what holding cash in short-term Treasuries would have earned.",
       "overview": "Built from monthly 3-month Treasury bill rates, compounded.",
       "goal": "Show the return of cash.",
       "note": "Monthly data. Used as the risk-free rate in Sharpe and Sortino ratios."
     },
     {
-      "id": "CPI", "name": "Inflation (CPI-U)", "short": "Inflation (CPI)", "kind": "benchmark",
-      "assetClass": "reference", "category": "Benchmark", "region": "us", "mix": "other", "equityPct": null, "wrapper": "reference",
+      "id": "CPI",
+      "name": "Inflation (CPI-U)",
+      "short": "Inflation (CPI)",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "reference",
       "index": "US Consumer Price Index for All Urban Consumers (FRED series CPIAUCSL)",
       "tickers": {},
-      "data": { "type": "fred_index", "series": "CPIAUCSL" },
+      "data": {
+        "type": "fred_index",
+        "series": "CPIAUCSL"
+      },
       "purpose": "Shows how fast prices rose, so you can see which funds beat inflation over a period.",
       "overview": "The US consumer price index, indexed to 100 at the start of its history.",
       "goal": "Show the purchasing-power yardstick.",
       "note": "Monthly data. A line above this one means the fund beat inflation over that stretch."
+    },
+    {
+      "id": "VGT",
+      "name": "US Technology",
+      "short": "Technology sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Information Technology 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VITAX",
+          "VGT"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGT",
+        "extends": [
+          "XLK"
+        ]
+      },
+      "purpose": "Concentrated bet on US technology: software, semiconductors, hardware and IT services.",
+      "overview": "Holds US technology companies, weighted by size, so a few giants (chip makers, software and device makers) dominate. It is the main place AI and software enthusiasm shows up in index funds.",
+      "goal": "Capture the return of the US technology sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLK), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "VHT",
+      "name": "US Health care",
+      "short": "Health care sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Health Care 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VHCIX",
+          "VHT"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VHT",
+        "extends": [
+          "XLV"
+        ]
+      },
+      "purpose": "Exposure to drug makers, device makers, insurers and hospital operators. Demand for health care changes little in recessions.",
+      "overview": "Holds US health care companies weighted by size: large drug makers, medical device makers, managed-care insurers and biotechnology.",
+      "goal": "Capture the return of the US health care sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLV), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "defensive"
+      ]
+    },
+    {
+      "id": "VFH",
+      "name": "US Financials",
+      "short": "Financials sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Financials 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VFAIX",
+          "VFH"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VFH",
+        "extends": [
+          "XLF"
+        ]
+      },
+      "purpose": "Exposure to banks, insurers, asset managers and payment companies. Tends to swing with the credit cycle.",
+      "overview": "Holds US banks, insurance companies, brokers and other financial firms, weighted by size.",
+      "goal": "Capture the return of the US financial sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLF), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector"
+      ]
+    },
+    {
+      "id": "VDE",
+      "name": "US Energy",
+      "short": "Energy sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Energy 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VENAX",
+          "VDE"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VDE",
+        "extends": [
+          "XLE"
+        ]
+      },
+      "purpose": "Oil, gas and energy-services companies. Often rises when inflation does and falls hard when oil prices collapse.",
+      "overview": "Holds US oil and gas producers, refiners and energy-equipment companies, weighted by size.",
+      "goal": "Capture the return of the US energy sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLE), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector"
+      ]
+    },
+    {
+      "id": "VIS",
+      "name": "US Industrials",
+      "short": "Industrials sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Industrials 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VINAX",
+          "VIS"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VIS",
+        "extends": [
+          "XLI"
+        ]
+      },
+      "purpose": "Aerospace, machinery, transportation and construction companies. Moves with the business cycle.",
+      "overview": "Holds US industrial companies, weighted by size: aerospace and defense, machinery, airlines, railroads and building products.",
+      "goal": "Capture the return of the US industrial sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLI), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector"
+      ]
+    },
+    {
+      "id": "VCR",
+      "name": "US Consumer discretionary",
+      "short": "Consumer discretionary sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Consumer Discretionary 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VCDAX",
+          "VCR"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VCR",
+        "extends": [
+          "XLY"
+        ]
+      },
+      "purpose": "Companies selling things people can put off buying: autos, travel, restaurants, online retail. Sensitive to recessions.",
+      "overview": "Holds US consumer-facing companies in cyclical businesses, weighted by size. A small number of very large online and auto retailers dominate.",
+      "goal": "Capture the return of the US consumer discretionary sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLY), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector"
+      ]
+    },
+    {
+      "id": "VDC",
+      "name": "US Consumer staples",
+      "short": "Consumer staples sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Consumer Staples 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VCSAX",
+          "VDC"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VDC",
+        "extends": [
+          "XLP"
+        ]
+      },
+      "purpose": "Everyday necessities: groceries, household goods, food, drinks and tobacco. Demand holds up when the economy falls, and discount retailers often gain customers.",
+      "overview": "Holds US makers and sellers of everyday goods, weighted by size. It typically includes the big discount and grocery retailers and the large household-goods makers, so it is the closest index fund to the Walmart, Target and Dollar General kind of company.",
+      "goal": "Capture the return of the US consumer staples sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLP), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "defensive"
+      ]
+    },
+    {
+      "id": "VOX",
+      "name": "US Communication services",
+      "short": "Communication services sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Communication Services 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VTCAX",
+          "VOX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VOX"
+      },
+      "purpose": "Telecom, media, social media and internet search companies. Today it is dominated by a few very large internet platforms.",
+      "overview": "Holds US telecom, media and interactive-media companies, weighted by size.",
+      "goal": "Capture the return of the US communication services sector.",
+      "note": "Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "VPU",
+      "name": "US Utilities",
+      "short": "Utilities sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Utilities 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VUIAX",
+          "VPU"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VPU",
+        "extends": [
+          "XLU"
+        ]
+      },
+      "purpose": "Electric, gas and water companies with regulated, steady demand. Often steadier in stock-market falls, but sensitive to interest rates.",
+      "overview": "Holds US regulated and independent power, gas and water utilities, weighted by size.",
+      "goal": "Capture the return of the US utilities sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLU), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "defensive",
+        "dividend"
+      ]
+    },
+    {
+      "id": "VAW",
+      "name": "US Materials",
+      "short": "Materials sector",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI US IMI Materials 25/50",
+      "tickers": {
+        "Vanguard": [
+          "VMIAX",
+          "VAW"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VAW",
+        "extends": [
+          "XLB"
+        ]
+      },
+      "purpose": "Chemicals, metals, mining, packaging and construction materials. Follows global industrial demand.",
+      "overview": "Holds US materials companies weighted by size: chemical makers, miners and packaging firms.",
+      "goal": "Capture the return of the US materials sector.",
+      "note": "Vanguard's sector ETF started in 2004. Earlier history uses the matching Select Sector SPDR ETF (XLB), scaled to match on the Vanguard fund's first date. The two follow slightly different indexes, so treat the older part as a close stand-in. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector"
+      ]
+    },
+    {
+      "id": "IGV",
+      "name": "Software (iShares Expanded Tech-Software)",
+      "short": "Software",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Themes: AI, software and chips",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "S&P North American Expanded Technology Software Index",
+      "tickers": {
+        "Other": [
+          "IGV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "IGV"
+      },
+      "purpose": "A pure play on software companies, the group most exposed if enthusiasm for software and AI applications cools.",
+      "overview": "Holds North American software and related companies. Useful as a yardstick for how a software-heavy portfolio behaves.",
+      "goal": "Capture the return of North American software stocks.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "SMH",
+      "name": "Semiconductors (VanEck)",
+      "short": "Semiconductors",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Themes: AI, software and chips",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MarketVector US Listed Semiconductor 25 Index",
+      "tickers": {
+        "Other": [
+          "SMH"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SMH"
+      },
+      "purpose": "Computer-chip makers, the hardware layer of AI. Very volatile: big gains in booms and deep falls in busts.",
+      "overview": "Holds about 25 of the largest chip designers and makers listed in the US. A few very large companies dominate.",
+      "goal": "Capture the return of leading semiconductor companies.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "BOTZ",
+      "name": "Robotics and AI (Global X)",
+      "short": "Robotics & AI",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Themes: AI, software and chips",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "Indxx Artificial Intelligence & Big Data / Robotics index (name has changed over time)",
+      "tickers": {
+        "Other": [
+          "BOTZ"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "BOTZ"
+      },
+      "purpose": "A thematic fund built around robotics, automation and AI. Short history and large swings.",
+      "overview": "Holds companies worldwide involved in robotics, automation and artificial intelligence.",
+      "goal": "Capture the return of companies tied to robotics and AI.",
+      "note": "Short history, so it does not cover the 2000 or 2008 declines. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "AIQ",
+      "name": "Artificial Intelligence & Technology (Global X)",
+      "short": "AI & technology",
+      "kind": "index",
+      "assetClass": "sector",
+      "category": "Themes: AI, software and chips",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "Indxx Artificial Intelligence & Big Data Index",
+      "tickers": {
+        "Other": [
+          "AIQ"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "AIQ"
+      },
+      "purpose": "A thematic fund holding companies that build or use AI and big-data technology.",
+      "overview": "Holds technology and internet companies worldwide that the index provider rates as AI-related. Overlaps heavily with large US technology stocks.",
+      "goal": "Capture the return of AI-related companies.",
+      "note": "Short history, so it does not cover the 2000 or 2008 declines. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "ai-software"
+      ]
+    },
+    {
+      "id": "QQQ",
+      "name": "Nasdaq-100 (Invesco QQQ)",
+      "short": "Nasdaq-100",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Growth",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "Nasdaq-100 Index",
+      "tickers": {
+        "Other": [
+          "QQQ",
+          "QQQM"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "QQQ"
+      },
+      "purpose": "The 100 largest non-financial Nasdaq companies. Heavily weighted to the big technology and internet names, so a good gauge of tech-boom and tech-bust behavior.",
+      "overview": "Holds the 100 largest non-financial companies on the Nasdaq exchange, weighted by size. Technology, internet and software companies are most of it.",
+      "goal": "Match the Nasdaq-100 Index.",
+      "note": "Not a Vanguard or Schwab fund. Fell about 80% from 2000 to 2002. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "ai-software"
+      ]
+    },
+    {
+      "id": "MGK",
+      "name": "US Mega-Cap Growth",
+      "short": "Mega-cap growth",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Growth",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "CRSP US Mega Cap Growth Index",
+      "tickers": {
+        "Vanguard": [
+          "VMGAX",
+          "MGK"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "MGK"
+      },
+      "purpose": "The very largest US growth companies. Concentrated in a handful of technology and internet names.",
+      "overview": "Holds roughly 70 of the largest US growth stocks, weighted by size, so the top few holdings are a large share of the fund.",
+      "goal": "Match the return of the largest US growth stocks.",
+      "note": "Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "ai-software"
+      ]
+    },
+    {
+      "id": "RSP",
+      "name": "S&P 500 Equal Weight",
+      "short": "S&P 500 equal weight",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Strategy funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "S&P 500 Equal Weight Index",
+      "tickers": {
+        "Other": [
+          "RSP"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "RSP"
+      },
+      "purpose": "The same 500 companies as the S&P 500 but each held in equal amounts, so the biggest handful of companies don't dominate.",
+      "overview": "Holds all S&P 500 companies at about the same weight each, rebalanced regularly. It owns far less of the largest technology names than a normal S&P 500 fund.",
+      "goal": "Spread the S&P 500's risk across all of its companies.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "factor"
+      ]
+    },
+    {
+      "id": "MTUM",
+      "name": "US Momentum (iShares)",
+      "short": "Momentum",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Strategy funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI USA Momentum SSE Index",
+      "tickers": {
+        "Other": [
+          "MTUM"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "MTUM"
+      },
+      "purpose": "Buys stocks that have recently risen the most. Does well in long trends and can be hit hard when the market turns.",
+      "overview": "Holds US stocks with the strongest recent price gains, reshuffled a few times a year.",
+      "goal": "Capture the momentum factor.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "factor"
+      ]
+    },
+    {
+      "id": "QUAL",
+      "name": "US Quality (iShares)",
+      "short": "Quality",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Strategy funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI USA Sector Neutral Quality Index",
+      "tickers": {
+        "Other": [
+          "QUAL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "QUAL"
+      },
+      "purpose": "Favors profitable companies with steady earnings and low debt.",
+      "overview": "Holds US large and mid-size companies the index rates high on return on equity, earnings stability and low leverage.",
+      "goal": "Capture the quality factor.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "factor"
+      ]
+    },
+    {
+      "id": "USMV",
+      "name": "US Minimum Volatility (iShares)",
+      "short": "Minimum volatility",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Strategy funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI USA Minimum Volatility Index",
+      "tickers": {
+        "Other": [
+          "USMV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "USMV"
+      },
+      "purpose": "Built to fall less than the market in a decline, at the cost of lagging in strong rallies.",
+      "overview": "Holds US stocks picked and weighted to produce lower overall volatility than the market, with limits on any one sector.",
+      "goal": "Deliver a smoother ride than the broad US market.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "factor",
+        "defensive"
+      ]
+    },
+    {
+      "id": "SPLV",
+      "name": "S&P 500 Low Volatility (Invesco)",
+      "short": "Low volatility",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Strategy funds",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "S&P 500 Low Volatility Index",
+      "tickers": {
+        "Other": [
+          "SPLV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SPLV"
+      },
+      "purpose": "Holds the 100 least volatile S&P 500 stocks, which tilts toward utilities, staples and health care.",
+      "overview": "Holds the 100 S&P 500 stocks with the lowest volatility over the past year, weighted by how steady they were.",
+      "goal": "Deliver smaller declines than the S&P 500.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "factor",
+        "defensive"
+      ]
+    },
+    {
+      "id": "NOBL",
+      "name": "Dividend Aristocrats (ProShares)",
+      "short": "Dividend aristocrats",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "S&P 500 Dividend Aristocrats Index",
+      "tickers": {
+        "Other": [
+          "NOBL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "NOBL"
+      },
+      "purpose": "Companies that have raised their dividends for 25 years in a row, which tilts toward steady, established firms.",
+      "overview": "Holds S&P 500 companies with at least 25 consecutive years of dividend increases, each at roughly equal weight.",
+      "goal": "Capture long-running dividend growers.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "dividend"
+      ]
+    },
+    {
+      "id": "JEPI",
+      "name": "Equity Premium Income (JPMorgan)",
+      "short": "Covered-call income",
+      "kind": "active",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "Actively managed; no index",
+      "tickers": {
+        "Other": [
+          "JEPI"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "JEPI"
+      },
+      "purpose": "Pays high income by holding lower-volatility stocks and selling options. Falls less in some declines but gives up much of the gains in strong rallies.",
+      "overview": "Holds a basket of US large-company stocks and sells call options on the S&P 500 to generate monthly income.",
+      "goal": "Pay a high income with less volatility than the market.",
+      "note": "Short history, started in 2020. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "dividend"
+      ]
+    },
+    {
+      "id": "VEIRX",
+      "name": "Equity Income (Vanguard, active)",
+      "short": "Equity income",
+      "kind": "active",
+      "assetClass": "us-stock",
+      "category": "Dividend",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark FTSE High Dividend Yield Index",
+      "tickers": {
+        "Vanguard": [
+          "VEIRX",
+          "VEIPX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VEIRX",
+        "extends": [
+          "VEIPX"
+        ]
+      },
+      "purpose": "An actively managed fund of large, higher-yielding US companies.",
+      "overview": "Holds dividend-paying US companies chosen by outside managers, tilted toward steadier, higher-yielding firms.",
+      "goal": "Pay above-market income and grow it over time.",
+      "note": "Earlier history uses the Investor share class (VEIPX). Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "dividend"
+      ]
+    },
+    {
+      "id": "VTCLX",
+      "name": "Tax-Managed Capital Appreciation",
+      "short": "Tax-managed US stock",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Tax-managed",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
+      "index": "Russell 1000 Index",
+      "tickers": {
+        "Vanguard": [
+          "VTCLX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTCLX",
+        "extends": [
+          "VTCIX"
+        ]
+      },
+      "purpose": "A broad US large-company stock fund run to minimize taxable distributions, for money held in a regular (taxable) account.",
+      "overview": "Holds large and mid-size US stocks tracking the Russell 1000 Index. It avoids selling shares at a gain and offsets gains with losses where it can.",
+      "goal": "Match the Russell 1000 while keeping taxable distributions low.",
+      "note": "Before-tax returns look much like a regular index fund; the benefit is a smaller tax bill, which these charts do not show. Earlier history uses another share class (VTCIX). Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VTMSX",
+      "name": "Tax-Managed Small-Cap",
+      "short": "Tax-managed small-cap",
+      "kind": "index",
+      "assetClass": "us-stock",
+      "category": "Tax-managed",
+      "region": "us",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
+      "index": "S&P SmallCap 600 Index",
+      "tickers": {
+        "Vanguard": [
+          "VTMSX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTMSX"
+      },
+      "purpose": "A small-company US stock fund run to keep taxable distributions low.",
+      "overview": "Holds US small-company stocks tracking the S&P SmallCap 600 Index, using the same tax-minimizing methods as other tax-managed funds.",
+      "goal": "Match the S&P SmallCap 600 while keeping taxable distributions low.",
+      "note": "Before-tax returns look much like other small-cap funds; the tax benefit is not shown here. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VTMFX",
+      "name": "Tax-Managed Balanced",
+      "short": "Tax-managed balanced",
+      "kind": "allocation",
+      "assetClass": "balanced",
+      "category": "Tax-managed",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 50,
+      "wrapper": "mutual-fund",
+      "index": "Mix of Russell 1000 stocks and Bloomberg Municipal bonds",
+      "tickers": {
+        "Vanguard": [
+          "VTMFX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VTMFX"
+      },
+      "purpose": "About half US stocks and half tax-exempt municipal bonds in one fund, aimed at investors in a taxable account.",
+      "overview": "Holds roughly half its money in US large-company stocks and half in intermediate municipal bonds whose interest is free of federal income tax.",
+      "goal": "Provide a balanced mix with a low tax bill.",
+      "note": "Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VMLUX",
+      "name": "Limited-Term Tax-Exempt",
+      "short": "Short municipal bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Municipal",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
+      "index": "Bloomberg 1-5 Year Municipal Bond Index",
+      "tickers": {
+        "Vanguard": [
+          "VMLUX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VMLUX",
+        "extends": [
+          "VMLTX"
+        ]
+      },
+      "purpose": "Short-maturity municipal bonds with interest free of federal income tax. Small price swings.",
+      "overview": "Holds municipal bonds with short maturities, so interest-rate changes affect it less than longer municipal funds.",
+      "goal": "Pay tax-free income with low volatility.",
+      "note": "Earlier history uses the Investor share class (VMLTX). Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VWIUX",
+      "name": "Intermediate-Term Tax-Exempt",
+      "short": "Intermediate municipal bonds",
+      "kind": "active",
+      "assetClass": "bond",
+      "category": "Municipal",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark Bloomberg 1-17 Year Municipal Bond Index",
+      "tickers": {
+        "Vanguard": [
+          "VWIUX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWIUX",
+        "extends": [
+          "VWITX"
+        ]
+      },
+      "purpose": "Mid-maturity municipal bonds with interest free of federal income tax.",
+      "overview": "Holds investment-grade municipal bonds with intermediate maturities.",
+      "goal": "Pay tax-free income with moderate volatility.",
+      "note": "Earlier history uses the Investor share class (VWITX). Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VWLUX",
+      "name": "Long-Term Tax-Exempt",
+      "short": "Long municipal bonds",
+      "kind": "active",
+      "assetClass": "bond",
+      "category": "Municipal",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark Bloomberg Municipal Bond Index",
+      "tickers": {
+        "Vanguard": [
+          "VWLUX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWLUX",
+        "extends": [
+          "VWLTX"
+        ]
+      },
+      "purpose": "Longer-maturity municipal bonds paying higher tax-free income, with larger price swings when rates move.",
+      "overview": "Holds investment-grade municipal bonds with long maturities.",
+      "goal": "Pay higher tax-free income, accepting more interest-rate risk.",
+      "note": "Earlier history uses the Investor share class (VWLTX). Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "VCADX",
+      "name": "California Intermediate-Term Tax-Exempt",
+      "short": "California municipal bonds",
+      "kind": "active",
+      "assetClass": "bond",
+      "category": "Municipal",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark Bloomberg California Municipal Bond Index (1-17 Year)",
+      "tickers": {
+        "Vanguard": [
+          "VCADX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VCADX",
+        "extends": [
+          "VCAIX"
+        ]
+      },
+      "purpose": "Municipal bonds from California issuers. For California residents the interest is generally free of both federal and California income tax.",
+      "overview": "Holds investment-grade California municipal bonds with intermediate maturities. It is concentrated in one state's issuers.",
+      "goal": "Pay income free of federal and California tax.",
+      "note": "Earlier history uses the Investor share class (VCAIX). Tax treatment depends on your state and situation. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "tax-managed"
+      ]
+    },
+    {
+      "id": "BIL",
+      "name": "1-3 Month Treasury Bills (SPDR)",
+      "short": "T-bill ETF",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Cash-like",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
+      "index": "Bloomberg 1-3 Month U.S. Treasury Bill Index",
+      "tickers": {
+        "Other": [
+          "BIL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "BIL"
+      },
+      "purpose": "The safest place to park money that still earns something: very short US Treasury bills.",
+      "overview": "Holds US Treasury bills maturing within about three months. Its price barely moves, and the income rises and falls with short-term interest rates.",
+      "goal": "Preserve money and earn the short-term Treasury rate.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "defensive"
+      ]
+    },
+    {
+      "id": "SGOV",
+      "name": "0-3 Month Treasury (iShares)",
+      "short": "T-bill ETF (SGOV)",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Cash-like",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
+      "index": "ICE 0-3 Month US Treasury Securities Index",
+      "tickers": {
+        "Other": [
+          "SGOV"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "SGOV"
+      },
+      "purpose": "Very short Treasury bills, similar to BIL, with a shorter history.",
+      "overview": "Holds US Treasury bills with up to three months to maturity.",
+      "goal": "Preserve money and earn the short-term Treasury rate.",
+      "note": "Short history, started in 2020. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "defensive"
+      ]
+    },
+    {
+      "id": "VWEAX",
+      "name": "High-Yield Corporate (Vanguard, active)",
+      "short": "High-yield bonds",
+      "kind": "active",
+      "assetClass": "bond",
+      "category": "Corporate",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark Bloomberg U.S. High Yield Corporate Bond Index",
+      "tickers": {
+        "Vanguard": [
+          "VWEAX",
+          "VWEHX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWEAX",
+        "extends": [
+          "VWEHX"
+        ]
+      },
+      "purpose": "Bonds of less creditworthy companies that pay higher interest. They fall with stocks in a crisis.",
+      "overview": "Holds mostly bonds rated below investment grade, with some higher-rated holdings.",
+      "goal": "Pay high income, accepting more credit risk.",
+      "note": "Earlier history uses the Investor share class (VWEHX). Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VCSH",
+      "name": "Short-Term Corporate Bonds",
+      "short": "Short corporate bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Corporate",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
+      "index": "Bloomberg U.S. 1-5 Year Corporate Bond Index",
+      "tickers": {
+        "Vanguard": [
+          "VSCSX",
+          "VCSH"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VCSH"
+      },
+      "purpose": "Investment-grade company bonds with short maturities. Pays more than Treasuries with small price swings.",
+      "overview": "Holds investment-grade US corporate bonds maturing in one to five years.",
+      "goal": "Pay more income than Treasuries with low interest-rate risk.",
+      "note": "Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VMBS",
+      "name": "Mortgage-Backed Securities",
+      "short": "Mortgage-backed bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "Mortgage-backed",
+      "region": "us",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
+      "index": "Bloomberg U.S. MBS Float Adjusted Index",
+      "tickers": {
+        "Vanguard": [
+          "VMBSX",
+          "VMBS"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VMBS"
+      },
+      "purpose": "Bonds backed by pools of home mortgages guaranteed by US government agencies.",
+      "overview": "Holds agency mortgage-backed securities, which pay interest and return principal as homeowners pay their loans.",
+      "goal": "Pay income above Treasuries with government-agency backing.",
+      "note": "Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VWOB",
+      "name": "Emerging Markets Government Bonds",
+      "short": "Emerging-market bonds",
+      "kind": "index",
+      "assetClass": "bond",
+      "category": "International bonds",
+      "region": "intl",
+      "mix": "bond",
+      "equityPct": 0,
+      "wrapper": "etf",
+      "index": "Bloomberg USD Emerging Markets Government RIC Capped Index",
+      "tickers": {
+        "Vanguard": [
+          "VWOB"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWOB"
+      },
+      "purpose": "Dollar-denominated bonds from emerging-market governments. Higher income, with credit and political risk.",
+      "overview": "Holds US-dollar bonds issued by emerging-market governments and related agencies.",
+      "goal": "Pay higher income from emerging-market issuers.",
+      "note": "Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VWENX",
+      "name": "Wellington (Vanguard, active)",
+      "short": "Wellington",
+      "kind": "active",
+      "assetClass": "balanced",
+      "category": "Active balanced",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 65,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark roughly 65% stocks and 35% bonds",
+      "tickers": {
+        "Vanguard": [
+          "VWENX",
+          "VWELX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWENX",
+        "extends": [
+          "VWELX"
+        ]
+      },
+      "purpose": "One of the oldest balanced funds in the US: roughly two-thirds stocks and one-third bonds, picked by an outside manager.",
+      "overview": "Holds US large-company stocks (leaning toward value and dividend payers) and investment-grade bonds.",
+      "goal": "Provide growth and income with less risk than an all-stock fund.",
+      "note": "Earlier history uses the Investor share class (VWELX). Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VWIAX",
+      "name": "Wellesley Income (Vanguard, active)",
+      "short": "Wellesley Income",
+      "kind": "active",
+      "assetClass": "balanced",
+      "category": "Active balanced",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 38,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark roughly 35-40% stocks and 60-65% bonds",
+      "tickers": {
+        "Vanguard": [
+          "VWIAX",
+          "VWINX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VWIAX",
+        "extends": [
+          "VWINX"
+        ]
+      },
+      "purpose": "A conservative income fund: mostly bonds with a smaller slice of higher-dividend stocks.",
+      "overview": "Holds investment-grade bonds and dividend-paying stocks, picked by an outside manager.",
+      "goal": "Provide income with relatively low risk.",
+      "note": "Earlier history uses the Investor share class (VWINX). Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VGHCX",
+      "name": "Health Care (Vanguard, active)",
+      "short": "Health Care fund (active)",
+      "kind": "active",
+      "assetClass": "sector",
+      "category": "Sector funds",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "mutual-fund",
+      "index": "Actively managed; benchmark MSCI World Health Care Index",
+      "tickers": {
+        "Vanguard": [
+          "VGHCX"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VGHCX"
+      },
+      "purpose": "An actively managed fund of drug, biotech and device companies. Health care has historically held up better than most sectors in recessions.",
+      "overview": "Holds health care companies around the world, picked by outside managers. A large share is in US drug makers.",
+      "goal": "Grow capital by investing in health care companies.",
+      "note": "Investor share class. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "sector",
+        "defensive"
+      ]
+    },
+    {
+      "id": "VT",
+      "name": "Total World Stock",
+      "short": "Total world stock",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Global",
+      "region": "global",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "FTSE Global All Cap Index",
+      "tickers": {
+        "Vanguard": [
+          "VTWAX",
+          "VT"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VT"
+      },
+      "purpose": "One fund holding stocks from around the world, roughly 60% US. A complete global stock portfolio in a single line.",
+      "overview": "Holds thousands of stocks across developed and emerging markets, weighted by size.",
+      "goal": "Match the global stock market.",
+      "note": "Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "VSS",
+      "name": "International Small-Cap",
+      "short": "International small-cap",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Developed international",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "FTSE Global Small Cap ex US Index",
+      "tickers": {
+        "Vanguard": [
+          "VFSVX",
+          "VSS"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "VSS"
+      },
+      "purpose": "Smaller companies outside the US, an area most broad international funds hold little of.",
+      "overview": "Holds thousands of small companies in developed and emerging countries outside the US.",
+      "goal": "Match the return of small international companies.",
+      "note": "Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "EWJ",
+      "name": "Japan (iShares MSCI)",
+      "short": "Japan",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Countries",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI Japan Index",
+      "tickers": {
+        "Other": [
+          "EWJ"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "EWJ"
+      },
+      "purpose": "The world's third-largest stock market. Useful for comparing: Japan's market stayed below its 1989 peak for decades.",
+      "overview": "Holds large and mid-size Japanese companies, weighted by size.",
+      "goal": "Match the Japanese stock market.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "FXI",
+      "name": "China Large-Cap (iShares)",
+      "short": "China large-cap",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Countries",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "FTSE China 50 Index",
+      "tickers": {
+        "Other": [
+          "FXI"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "FXI"
+      },
+      "purpose": "About 50 of the largest Chinese companies listed in Hong Kong. A concentrated, volatile bet on one country.",
+      "overview": "Holds roughly 50 large Chinese companies, mostly banks, internet and energy firms.",
+      "goal": "Match large Chinese stocks.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "INDA",
+      "name": "India (iShares MSCI)",
+      "short": "India",
+      "kind": "index",
+      "assetClass": "intl-stock",
+      "category": "Countries",
+      "region": "intl",
+      "mix": "stock",
+      "equityPct": 100,
+      "wrapper": "etf",
+      "index": "MSCI India Index",
+      "tickers": {
+        "Other": [
+          "INDA"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "INDA"
+      },
+      "purpose": "Large and mid-size Indian companies, a fast-growing economy with a volatile market.",
+      "overview": "Holds Indian companies weighted by size, led by banks, technology services and energy.",
+      "goal": "Match the Indian stock market.",
+      "note": "Short history, started in 2012. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "DBMF",
+      "name": "Managed Futures Strategy (iMGP DBi)",
+      "short": "Managed futures",
+      "kind": "active",
+      "assetClass": "alternatives",
+      "category": "Hedges",
+      "region": "global",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
+      "index": "Replicates the average positions of large managed-futures hedge funds",
+      "tickers": {
+        "Other": [
+          "DBMF"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "DBMF"
+      },
+      "purpose": "Trend-following funds buy what is rising and sell what is falling across stocks, bonds, currencies and commodities. They sometimes profit in prolonged declines, such as 2022, but can lose in sudden reversals.",
+      "overview": "Holds futures contracts and cash, adjusting positions based on recent price trends, with no fixed stock or bond share.",
+      "goal": "Add returns that don't move with stocks and bonds.",
+      "note": "Short history, started in 2019, so it misses 2000 and 2008. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "defensive"
+      ]
+    },
+    {
+      "id": "BTAL",
+      "name": "Anti-Beta (AGF US Market Neutral)",
+      "short": "Anti-beta",
+      "kind": "index",
+      "assetClass": "alternatives",
+      "category": "Hedges",
+      "region": "us",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
+      "index": "Dow Jones U.S. Thematic Market Neutral Anti-Beta Index",
+      "tickers": {
+        "Other": [
+          "BTAL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "BTAL"
+      },
+      "purpose": "Buys the least market-sensitive US stocks and bets against the most market-sensitive. It has tended to rise when stocks fall, but can lose steadily in rallies.",
+      "overview": "Holds a long position in low-beta US stocks and an equal short position in high-beta stocks.",
+      "goal": "Provide returns that move opposite to the stock market.",
+      "note": "Hedge fund-style strategy that costs money to hold in good times. Started in 2011. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "defensive"
+      ]
+    },
+    {
+      "id": "TAIL",
+      "name": "Tail Risk (Cambria)",
+      "short": "Tail-risk hedge",
+      "kind": "active",
+      "assetClass": "alternatives",
+      "category": "Hedges",
+      "region": "us",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
+      "index": "Actively managed: Treasuries plus put options on the S&P 500",
+      "tickers": {
+        "Other": [
+          "TAIL"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "TAIL"
+      },
+      "purpose": "Holds Treasuries and buys protective options that pay off in sharp stock-market declines. Insurance that usually costs a little each year.",
+      "overview": "Holds mostly US Treasury securities and a layer of put options on the S&P 500.",
+      "goal": "Pay off in a large stock-market decline.",
+      "note": "Short history, started in 2017. Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them.",
+      "tags": [
+        "defensive"
+      ]
+    },
+    {
+      "id": "DBC",
+      "name": "Broad Commodities (Invesco DB)",
+      "short": "Commodities",
+      "kind": "commodity",
+      "assetClass": "real-assets",
+      "category": "Commodities",
+      "region": "global",
+      "mix": "other",
+      "equityPct": null,
+      "wrapper": "etf",
+      "index": "DBIQ Optimum Yield Diversified Commodity Index Excess Return",
+      "tickers": {
+        "Other": [
+          "DBC"
+        ]
+      },
+      "data": {
+        "type": "fund",
+        "ticker": "DBC"
+      },
+      "purpose": "A basket of oil, metals and farm commodities. Often rises with inflation but is very volatile and fell sharply in 2008.",
+      "overview": "Holds futures contracts on about 14 commodities: energy, metals and agriculture.",
+      "goal": "Track broad commodity prices.",
+      "note": "Not a Vanguard or Schwab fund. Confirm the details on the provider's page before relying on them."
+    },
+    {
+      "id": "BLEND8020",
+      "name": "80/20 Stock/Bond Blend (hypothetical)",
+      "short": "80/20 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 80,
+      "wrapper": "reference",
+      "index": "Calculated here: 80% S&P 500 fund, 20% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.8,
+          "VBTLX": 0.2
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 80% stock, 20% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLEND7030",
+      "name": "70/30 Stock/Bond Blend (hypothetical)",
+      "short": "70/30 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 70,
+      "wrapper": "reference",
+      "index": "Calculated here: 70% S&P 500 fund, 30% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.7,
+          "VBTLX": 0.3
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 70% stock, 30% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLEND5050",
+      "name": "50/50 Stock/Bond Blend (hypothetical)",
+      "short": "50/50 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 50,
+      "wrapper": "reference",
+      "index": "Calculated here: 50% S&P 500 fund, 50% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.5,
+          "VBTLX": 0.5
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 50% stock, 50% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLEND4060",
+      "name": "40/60 Stock/Bond Blend (hypothetical)",
+      "short": "40/60 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 40,
+      "wrapper": "reference",
+      "index": "Calculated here: 40% S&P 500 fund, 60% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.4,
+          "VBTLX": 0.6
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 40% stock, 60% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLEND3070",
+      "name": "30/70 Stock/Bond Blend (hypothetical)",
+      "short": "30/70 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 30,
+      "wrapper": "reference",
+      "index": "Calculated here: 30% S&P 500 fund, 70% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.3,
+          "VBTLX": 0.7
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 30% stock, 70% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLEND2080",
+      "name": "20/80 Stock/Bond Blend (hypothetical)",
+      "short": "20/80 blend",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 20,
+      "wrapper": "reference",
+      "index": "Calculated here: 20% S&P 500 fund, 80% Total Bond Market fund, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.2,
+          "VBTLX": 0.8
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A yardstick for a 20% stock, 80% bond portfolio.",
+      "overview": "Computed by this app from the weekly returns of the S&P 500 line and the Total Bond Market line, rebalanced each month. It ignores trading costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
+    },
+    {
+      "id": "BLENDPERM",
+      "name": "Four-way Blend: stocks, long bonds, gold, cash (hypothetical)",
+      "short": "Stocks/bonds/gold/cash",
+      "kind": "benchmark",
+      "assetClass": "reference",
+      "category": "Benchmark",
+      "region": "us",
+      "mix": "mixed",
+      "equityPct": 25,
+      "wrapper": "reference",
+      "index": "Calculated here: 25% each in the S&P 500 fund, Long-Term Bond fund, gold ETF and 3-month Treasury bills, rebalanced monthly",
+      "tickers": {},
+      "data": {
+        "type": "blend",
+        "weights": {
+          "VFIAX": 0.25,
+          "VBLAX": 0.25,
+          "GLD": 0.25,
+          "CASH": 0.25
+        },
+        "rebalance": "monthly"
+      },
+      "purpose": "A well-known 'something for every economy' mix: stocks for growth, long bonds for recessions, gold for inflation and cash for stability.",
+      "overview": "Computed by this app. It starts in 2004 when the gold ETF began. Hypothetical, ignores costs and taxes.",
+      "goal": "Show what this mix would have done.",
+      "note": "Hypothetical. Not an investable fund. Ignores trading costs and taxes."
     }
   ]
 }

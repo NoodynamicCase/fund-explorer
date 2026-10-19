@@ -165,19 +165,127 @@ def fetch_prices(ticker: str) -> tuple[pd.Series, str | None, str]:
     raise RuntimeError("; ".join(errors) if errors else "no source available")
 
 
-def fetch_fred(series_id: str) -> pd.Series:
+def _retry(fn, attempts: int = 4, pause: float = 4.0):
+    """Call fn(); on failure wait (4s, 8s, 16s...) and try again. Re-raises the last error."""
+    last: Exception | None = None
+    for i in range(attempts):
+        try:
+            return fn()
+        except Exception as exc:  # noqa: BLE001
+            last = exc
+            if i < attempts - 1:
+                time.sleep(pause * (2 ** i))
+    assert last is not None
+    raise last
+
+
+def _fred_from_fred(series_id: str) -> pd.Series:
     import requests
 
     url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
-    resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=60)
+    resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=(15, 90))
     resp.raise_for_status()
     df = pd.read_csv(io.StringIO(resp.text))
     dates = pd.to_datetime(df.iloc[:, 0], errors="coerce")
     values = pd.to_numeric(df.iloc[:, 1], errors="coerce")
-    s = pd.Series(values.values, index=dates).dropna()
-    if s.empty:
-        raise ValueError(f"FRED {series_id}: empty")
-    return s
+    return pd.Series(values.values, index=dates).dropna()
+
+
+def _fred_from_dbnomics(series_id: str) -> pd.Series:
+    """DB.nomics mirrors FRED's data and needs no key; used when fred.stlouisfed.org is slow."""
+    import requests
+
+    url = f"https://api.db.nomics.world/v22/series/FRED/{series_id}?observations=1&format=json"
+    resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=(15, 90))
+    resp.raise_for_status()
+    doc = resp.json()["series"]["docs"][0]
+    return pd.Series(pd.to_numeric(pd.Series(doc["value"]), errors="coerce").values,
+                     index=pd.to_datetime(pd.Series(doc["period"]), errors="coerce")).dropna()
+
+
+def fetch_fred(series_id: str) -> pd.Series:
+    """Monthly economic series (CPI, T-bill rate). Tries FRED with retries, then DB.nomics."""
+    errors: list[str] = []
+    for name, fn in (("FRED", _fred_from_fred), ("DB.nomics", _fred_from_dbnomics)):
+        try:
+            s = _retry(lambda fn=fn: fn(series_id))
+            s = s[~s.index.isna()].sort_index()
+            if s.empty:
+                raise ValueError("empty")
+            return s
+        except Exception as exc:  # noqa: BLE001
+            errors.append(f"{name}: {exc}")
+    raise RuntimeError(f"{series_id}: " + "; ".join(errors))
+
+
+# ------------------------------------------------------------------------- holdings
+
+
+def holdings_eligible(entry: dict) -> bool:
+    """Stock and stock/bond funds (and REITs) get a top-holdings file. Bond, gold and hedge funds do not."""
+    return entry["data"]["type"] == "fund" and (entry.get("mix") in ("stock", "mixed") or entry["id"] == "VNQ")
+
+
+def holdings_symbols(entry: dict) -> list[str]:
+    """ETF tickers first (their holdings pages are the most complete), then mutual-fund tickers."""
+    out: list[str] = []
+    for lst in entry.get("tickers", {}).values():
+        out.extend(lst)
+    out.append(entry["data"]["ticker"])
+    uniq = list(dict.fromkeys(out))
+    return sorted(uniq, key=lambda t: 1 if (len(t) == 5 and t.endswith("X")) else 0)
+
+
+def _num(x) -> float | None:
+    try:
+        v = float(x)
+        return v if np.isfinite(v) else None
+    except (TypeError, ValueError):
+        return None
+
+
+def fetch_holdings(symbols: list[str]) -> dict:
+    """Biggest holdings and sector weights from Yahoo Finance (via yfinance). Raises if nothing usable."""
+    import yfinance as yf
+
+    errors: list[str] = []
+    for sym in symbols:
+        try:
+            fd_ = yf.Ticker(sym).funds_data
+            th = fd_.top_holdings
+            if th is None or len(th) == 0:
+                raise ValueError("no top holdings")
+            name_col = next((c for c in th.columns if "name" in str(c).lower()), None)
+            pct_col = next((c for c in th.columns if "percent" in str(c).lower() or "weight" in str(c).lower()), None)
+            if pct_col is None:
+                raise ValueError("no weight column")
+            top = []
+            for symbol, row in th.iterrows():
+                pct = _num(row[pct_col])
+                if pct is None:
+                    continue
+                top.append({"symbol": str(symbol).strip(), "name": str(row[name_col]).strip() if name_col else "", "pct": round(pct * 100.0, 2)})
+            if not top:
+                raise ValueError("empty after parsing")
+            out: dict = {"symbol": sym, "top": top, "topTotal": round(sum(t["pct"] for t in top), 2)}
+            try:
+                sw = fd_.sector_weightings or {}
+                sectors = {str(k): round(float(v) * 100.0, 2) for k, v in sw.items() if _num(v) is not None}
+                if sectors:
+                    out["sectors"] = sectors
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                ac = fd_.asset_classes or {}
+                assets = {str(k): round(float(v) * 100.0, 2) for k, v in ac.items() if _num(v) is not None}
+                if assets:
+                    out["assets"] = assets
+            except Exception:  # noqa: BLE001
+                pass
+            return out
+        except Exception as exc:  # noqa: BLE001
+            errors.append(f"{sym}: {exc}")
+    raise RuntimeError("; ".join(errors)[:300])
 
 
 # ---------------------------------------------------------------------- transforms
@@ -240,9 +348,38 @@ def cash_index(rates_pct: pd.Series) -> pd.Series:
     return growth.cumprod() * 100.0
 
 
+def _period_key(ts: pd.Timestamp, rebalance: str):
+    if rebalance == "monthly":
+        return (ts.year, ts.month)
+    if rebalance == "quarterly":
+        return (ts.year, (ts.month - 1) // 3)
+    if rebalance == "yearly":
+        return ts.year
+    return None  # "never": buy and hold
+
+
+def align_to_weekly(parts: dict[str, pd.Series]) -> dict[str, pd.Series]:
+    """Monthly series (cash, CPI) are carried forward onto the weekly dates of the other parts."""
+    def gap(x: pd.Series) -> float:
+        d = x.index.to_series().diff().dt.days.dropna()
+        return float(d.median()) if len(d) else 7.0
+
+    weekly = [k for k, v in parts.items() if gap(v) <= 10]
+    if not weekly:
+        return parts
+    base = parts[weekly[0]].index
+    for k in weekly[1:]:
+        base = base.union(parts[k].index)
+    out: dict[str, pd.Series] = {}
+    for k, v in parts.items():
+        out[k] = v if k in weekly else v.reindex(v.index.union(base)).ffill().reindex(base)
+    return out
+
+
 def blend_series(parts: dict[str, pd.Series], weights: dict[str, float], rebalance: str = "monthly") -> pd.Series:
-    """Constant-mix blend of weekly series, rebalanced at the first week of each month."""
-    df = pd.concat(parts, axis=1).dropna()
+    """Constant-mix blend of weekly series, rebalanced monthly/quarterly/yearly (or never)."""
+    parts = align_to_weekly(parts)
+    df = pd.concat(parts, axis=1).ffill().dropna()
     if len(df) < 3:
         raise ValueError("not enough overlapping history to blend")
     w = pd.Series(weights)[df.columns].astype(float)
@@ -251,14 +388,14 @@ def blend_series(parts: dict[str, pd.Series], weights: dict[str, float], rebalan
     h = w.copy()
     value = 100.0
     out = [(df.index[0], value)]
-    prev_period = (df.index[0].year, df.index[0].month)
+    prev_period = _period_key(df.index[0], rebalance)
     for date, r in rets.iterrows():
         h = h * (1.0 + r)
         growth = float(h.sum())
         value *= growth
         h = h / growth
-        period = (date.year, date.month)
-        if rebalance == "monthly" and period != prev_period:
+        period = _period_key(date, rebalance)
+        if period is not None and period != prev_period:
             h = w.copy()
         prev_period = period
         out.append((date, value))
@@ -314,11 +451,14 @@ def build_manifest(out_dir: Path, failed: list[dict], source_order: list[str]) -
             "synthetic": bool(d.get("synthetic")),
             "fetchedAt": d.get("fetchedAt"),
         }
+    hold_dir = out_dir / "holdings"
+    holdings = sorted(p.stem for p in hold_dir.glob("*.json")) if hold_dir.exists() else []
     return {
         "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "synthetic": any(f["synthetic"] for f in funds.values()),
         "sourceOrder": source_order,
         "funds": funds,
+        "holdings": holdings,
         "failed": failed,
     }
 
@@ -330,6 +470,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(DEFAULT_OUT), help="output directory (default public/data)")
     ap.add_argument("--only", default="", help="comma-separated fund ids to refresh (default: all)")
+    ap.add_argument("--no-holdings", action="store_true", help="skip the top-holdings download")
     args = ap.parse_args()
 
     out_dir = Path(args.out)
@@ -424,6 +565,23 @@ def main() -> int:
 
     for fid, payload in results.items():
         write_json(series_dir / f"{fid}.json", payload)
+
+    # 4) top holdings (best effort: never blocks the price data)
+    if not args.no_holdings and os.environ.get("FETCH_HOLDINGS", "1") != "0":
+        got = 0
+        todo = [e for e in entries if holdings_eligible(e)]
+        log(f"\nTop holdings for {len(todo)} funds ...")
+        for e in todo:
+            try:
+                h = fetch_holdings(holdings_symbols(e))
+                payload = {"id": e["id"], "asOf": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "source": "yfinance", **h}
+                write_json(out_dir / "holdings" / f"{e['id']}.json", payload)
+                got += 1
+                log(f"  ok   {e['id']:10s} {len(h['top'])} holdings via {h['symbol']}")
+            except Exception as exc:  # noqa: BLE001
+                log(f"  skip {e['id']:10s} {exc}")
+            time.sleep(REQUEST_PAUSE_SECONDS)
+        log(f"Holdings: {got}/{len(todo)} funds.")
     manifest = build_manifest(out_dir, failed, SOURCE_ORDER)
     write_json(out_dir / "manifest.json", manifest)
     log(f"Wrote {len(results)} series files and manifest.json to {out_dir}")

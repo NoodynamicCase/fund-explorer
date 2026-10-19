@@ -248,3 +248,34 @@ table.stats { border-collapse: collapse; width: 100%; font-variant-numeric: tabu
   .fund-list { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- my mix ---------- */
+.head-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.btn[aria-pressed='true'] { background: var(--hover); border-color: var(--ink-2); }
+.mixbar { display: grid; gap: 8px; margin: 0 0 12px; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.mix-help { color: var(--ink-2); font-size: 13px; max-width: 80ch; }
+.mix-tools { display: flex; gap: 10px 16px; align-items: center; flex-wrap: wrap; }
+.mix-select { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-size: 13px; }
+.mix-select select { height: 32px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); padding: 0 8px; }
+.mix-total { font-size: 13px; font-variant-numeric: tabular-nums; }
+.mix-problem { font-size: 13px; color: var(--ink); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 6px; padding: 6px 10px; }
+.stats .mix-row th, .stats .mix-row td { background: var(--hover); border-bottom: 2px solid var(--axis); }
+.stats .mix-row .fund-col { background: var(--bg); }
+.weight-cell { min-width: 96px; }
+.weight-input { display: inline-flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.weight-input input { width: 74px; height: 30px; padding: 0 8px; text-align: right; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); font-variant-numeric: tabular-nums; }
+.weight-share { font-size: 12px; min-width: 40px; text-align: right; }
+.row-note { max-width: 520px; white-space: normal; }
+
+/* ---------- holdings in the info box ---------- */
+.holdings { display: grid; gap: 8px; border-top: 1px solid var(--grid); padding-top: 12px; }
+.holdings h3 { font-size: 14px; font-weight: 650; }
+.holdings-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.holdings-table th, .holdings-table td { padding: 4px 6px 4px 0; text-align: left; font-weight: 400; vertical-align: middle; }
+.holdings-table th { width: 46%; }
+.holdings-table .num { text-align: right; width: 52px; font-variant-numeric: tabular-nums; }
+.holdings-table .bar-cell { width: 26%; }
+.holdings-table .bar { display: block; height: 8px; border-radius: 4px; background: var(--ink-2); min-width: 2px; }
+.holdings-table .tag-cell { white-space: nowrap; text-align: right; }
+.theme-tag { display: inline-block; margin-left: 4px; padding: 0 7px; font-size: 11.5px; line-height: 18px; border-radius: 9px; border: 1px solid var(--axis); color: var(--ink-2); }
+@media (max-width: 520px) { .holdings-table .bar-cell { display: none; } .holdings-table th { width: auto; } }

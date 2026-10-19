@@ -1,4 +1,5 @@
-import type { CatalogFund, Series } from '../types'
+import type { CatalogFund, HoldingsFile, Series } from '../types'
+import { exposureOf, type Exposure } from './themes'
 import { allTickers } from './catalog'
 import { CRISES, type Crisis } from './crises'
 import { fmtDate, fmtMonth, fmtNum, fmtPct } from './format'
@@ -22,6 +23,9 @@ export interface RowCtx {
   to?: number
   rfAnnual: number
   bench?: Series
+  holdings?: HoldingsFile | null
+  /** Pre-computed exposure (used for the user's mix). Wins over `holdings`. */
+  exposure?: Exposure | null
 }
 
 export interface RowStats {
@@ -39,7 +43,11 @@ export interface RowStats {
   crisis: Record<string, CrisisResult | null>
   spliced: { ticker: string; until: string }[]
   synthetic: boolean
+  /** AI / software / technology exposure from disclosed holdings; null when unknown or not meaningful. */
+  exposure: Exposure | null
 }
+
+const FUND_OF_FUNDS = new Set(['allocation', 'target-date'])
 
 export function computeRow(c: RowCtx): RowStats {
   const s = c.series
@@ -62,6 +70,7 @@ export function computeRow(c: RowCtx): RowStats {
     crisis,
     spliced: (s.meta.spliced as { ticker: string; until: string }[] | undefined) ?? [],
     synthetic: Boolean(s.meta.synthetic),
+    exposure: c.exposure !== undefined ? c.exposure : c.holdings && !FUND_OF_FUNDS.has(c.fund.kind) ? exposureOf(c.holdings) : null,
   }
 }
 
@@ -85,6 +94,7 @@ const G_HIST = 'History'
 const G_RISK = 'Risk'
 const G_CRISIS = 'Market stress periods'
 const G_ABOUT = 'About the fund'
+const G_HOLD = 'Holdings and AI / software exposure'
 
 function pct(
   id: string, label: string, group: string, help: string, defaultOn: boolean,
@@ -167,6 +177,34 @@ export const COLUMNS: ColumnDef[] = [
   num('beta', 'Beta vs S&P 500', G_RISK, 'How much the fund moves when the S&P 500 line moves, over the window. 1.0 moves in step; below 1 moves less.', false, (r) => r.beta?.beta ?? null),
   num('corr', 'Correlation vs S&P 500', G_RISK, 'How closely the fund moves with the S&P 500 line, from -1 to 1. Near 1 means little diversification.', false, (r) => r.beta?.corr ?? null),
   ...crisisCols(),
+  {
+    id: 'tech', label: 'Technology sector', group: G_HOLD, defaultOn: false, numeric: true,
+    help: 'Share of the fund in technology-sector companies, as reported by the data provider. Blank until holdings data has been downloaded, and for bond funds.',
+    value: (r) => r.exposure?.tech ?? null, format: (v) => (v === null ? '–' : `${(v as number).toFixed(1)}%`),
+  },
+  {
+    id: 'aiTop', label: 'AI-linked (top holdings)', group: G_HOLD, defaultOn: false, numeric: true,
+    help: 'Share of the fund in its ten biggest holdings that are chips, AI infrastructure, cloud platforms or other AI-dependent companies (my classification, listed in catalog/themes.json). Only the top ten are disclosed, so the true figure is higher. Blank for funds of funds.',
+    value: (r) => r.exposure?.ai ?? null, format: (v) => (v === null ? '–' : `${(v as number).toFixed(1)}%`),
+    title: (r) => (r.exposure ? `Top 10 holdings are ${r.exposure.covered.toFixed(1)}% of the fund` : undefined),
+  },
+  {
+    id: 'swTop', label: 'Software (top holdings)', group: G_HOLD, defaultOn: false, numeric: true,
+    help: 'Share of the fund in its ten biggest holdings that are software companies (my classification). Only the top ten are disclosed. Blank for funds of funds.',
+    value: (r) => r.exposure?.software ?? null, format: (v) => (v === null ? '–' : `${(v as number).toFixed(1)}%`),
+    title: (r) => (r.exposure ? `Top 10 holdings are ${r.exposure.covered.toFixed(1)}% of the fund` : undefined),
+  },
+  {
+    id: 'aiSwTop', label: 'AI or software (top holdings)', group: G_HOLD, defaultOn: false, numeric: true,
+    help: 'The two groups combined, counting a company once (Microsoft is both). Only the ten biggest holdings are counted.',
+    value: (r) => r.exposure?.either ?? null, format: (v) => (v === null ? '–' : `${(v as number).toFixed(1)}%`),
+    title: (r) => (r.exposure ? `Top 10 holdings are ${r.exposure.covered.toFixed(1)}% of the fund` : undefined),
+  },
+  {
+    id: 'top10', label: 'Top 10 share', group: G_HOLD, defaultOn: false, numeric: true,
+    help: 'How much of the fund the ten biggest holdings make up. A bigger number means a few companies drive the result.',
+    value: (r) => r.exposure?.covered ?? null, format: (v) => (v === null ? '–' : `${(v as number).toFixed(1)}%`),
+  },
   {
     id: 'tickers', label: 'Tickers', group: G_ABOUT, defaultOn: false, numeric: false,
     help: 'Funds that give this exposure.', value: (r) => allTickers(r.fund).join(' '), format: (v) => (v ? String(v) : '–'),

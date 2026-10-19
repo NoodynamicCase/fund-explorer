@@ -18,6 +18,8 @@ export interface LegendItem {
   dash?: string
   status: LegendStatus
   note?: string
+  /** No info box for this entry (the user's mix). */
+  noInfo?: boolean
 }
 
 export type RangeKey = 'max' | '20y' | '10y' | '5y' | '1y'
@@ -184,9 +186,11 @@ export function ChartPanel(p: Props) {
                 {l.short}
               </span>
               {l.note && <span className="legend-note">{l.note}</span>}
-              <button type="button" className="btn icon tiny" onClick={() => p.onInfo(l.id)} aria-label={`About ${l.name}`} title="About this fund">
-                <IconInfo />
-              </button>
+              {!l.noInfo && (
+                <button type="button" className="btn icon tiny" onClick={() => p.onInfo(l.id)} aria-label={`About ${l.name}`} title="About this fund">
+                  <IconInfo />
+                </button>
+              )}
               <button type="button" className="btn icon tiny" onClick={() => p.onRemove(l.id)} aria-label={`Remove ${l.name} from the chart`} title="Remove">
                 <IconClose />
               </button>

@@ -1,4 +1,4 @@
-export type AssetClass = 'us-stock' | 'intl-stock' | 'bond' | 'balanced' | 'real-assets' | 'reference'
+export type AssetClass = 'us-stock' | 'sector' | 'intl-stock' | 'bond' | 'balanced' | 'real-assets' | 'alternatives' | 'reference'
 export type Mix = 'stock' | 'mixed' | 'bond' | 'other'
 export type Kind = 'index' | 'allocation' | 'target-date' | 'active' | 'commodity' | 'benchmark'
 export type Wrapper = 'mutual-fund' | 'etf' | 'reference'
@@ -22,6 +22,8 @@ export interface CatalogFund {
   overview: string
   goal: string
   note?: string
+  /** Free-form labels used by the Theme filter (sector, tax-managed, factor, defensive, ai-software, dividend). */
+  tags?: string[]
 }
 
 /** What a series file on disk looks like (see scripts/fetch_data.py). */
@@ -46,10 +48,32 @@ export interface ManifestEntry {
   fetchedAt?: string
 }
 
+export interface Holding {
+  symbol: string
+  name: string
+  /** Percent of the fund (7.4 = 7.4%). */
+  pct: number
+}
+
+/** Biggest holdings of a fund (public/data/holdings/<id>.json). Yahoo Finance reports only the top 10. */
+export interface HoldingsFile {
+  id: string
+  asOf: string
+  source?: string
+  symbol?: string
+  top: Holding[]
+  topTotal?: number
+  /** Percent by sector, Yahoo's keys (technology, healthcare, financial_services ...). */
+  sectors?: Record<string, number>
+  assets?: Record<string, number>
+}
+
 export interface Manifest {
   generatedAt: string | null
   synthetic: boolean
   sourceOrder?: string[]
+  /** Fund ids that have a holdings file. */
+  holdings?: string[]
   funds: Record<string, ManifestEntry>
   failed?: { id: string; reason: string }[]
 }
